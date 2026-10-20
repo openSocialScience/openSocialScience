@@ -97,9 +97,9 @@ oss install-skills
 
 | 论文 | 类型 | 数据 | 体例 |
 |---|---|---|---|
-| [差序格局的城乡与代际分布](../../examples/descriptive-chaxu-geju/paper_shehuixue-yanjiu.pdf) | <img src="https://img.shields.io/badge/Descriptive-f28e2b?style=flat-square" alt="Descriptive"> | CGSS 2015 | 社会学研究 |
-| [公共服务获得感测的是谁的获得](../../examples/measurement-huodegan/paper_guanli-shijie.pdf) | <img src="https://img.shields.io/badge/Measurement-00a890?style=flat-square" alt="Measurement"> | CGSS 2013 | 管理世界 |
-| [宗教参与、捐赠与对陌生人的信任](../../examples/causal-religion-trust/paper_zgshkx.pdf) | <img src="https://img.shields.io/badge/Causal-ef476f?style=flat-square" alt="Causal"> | CGSS 2012 | 中国社会科学 |
+| [差序格局的城乡与代际分布](../../examples/descriptive-chaxu-geju/paper_shehuixue-yanjiu.pdf) | <a href="../../examples/descriptive-chaxu-geju/paper_shehuixue-yanjiu.pdf"><img src="https://img.shields.io/badge/Descriptive-f28e2b?style=flat-square" alt="Descriptive"></a> | CGSS 2015 | 社会学研究 |
+| [公共服务获得感测的是谁的获得](../../examples/measurement-huodegan/paper_guanli-shijie.pdf) | <a href="../../examples/measurement-huodegan/paper_guanli-shijie.pdf"><img src="https://img.shields.io/badge/Measurement-00a890?style=flat-square" alt="Measurement"></a> | CGSS 2013 | 管理世界 |
+| [宗教参与、捐赠与对陌生人的信任](../../examples/causal-religion-trust/paper_zgshkx.pdf) | <a href="../../examples/causal-religion-trust/paper_zgshkx.pdf"><img src="https://img.shields.io/badge/Causal-ef476f?style=flat-square" alt="Causal"></a> | CGSS 2012 | 中国社会科学 |
 
 ## 🔍 数字溯源
 
