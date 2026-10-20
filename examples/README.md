@@ -54,6 +54,7 @@
 | `paper_*.docx` | 按目标期刊体例排的版本 |
 | `paper.md` | 源稿——统计结果都是 `{{result:...}}` 占位符，正文里没有一个手打的数字 |
 | `paper_rendered.md` | 由程序把真实数值填进去之后的稿子 |
+| `literature.json` | 正文引到的文献记录，参考文献按它排；中文文献的刊名、卷期页已对照期刊页面核过 |
 | `plan.json` | 分析计划，含开跑前就登记好的稳健性清单 |
 | `results.json` | 全部估计结果与诊断 |
 | `power.json` / `binding.json` | 统计功效 / 构念绑到了哪些真实列 |
