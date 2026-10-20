@@ -1,0 +1,18 @@
+{
+  "journal": "Social Forces",
+  "word_limit": 10000,
+  "word_limit_includes_references": true,
+  "max_tables_figures": 10,
+  "double_blind": true,
+  "abstract_max_words": null,
+  "abstract_no_citations": true,
+  "reference_style": "Chicago Manual of Style, 17th edition",
+  "supplementary_max_pages": 10,
+  "figures_inline": true,
+  "other_requirements": [
+    "Abstracts should summarize the article's quest with or without conclusions.",
+    "Submit all identifying information on a separate Title Page.",
+    "Number tables and figures consecutively by appearance and provide a legend for each.",
+    "Supplementary material should primarily contain tables/figures, rather than supplementary text."
+  ]
+}

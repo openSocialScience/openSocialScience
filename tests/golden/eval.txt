@@ -1,0 +1,42 @@
+EXIT 7
+---
+✓ [must  ] profile-first          oss profile 在 seq 1
+· [should] lit-camps              没有 literature.json
+✗ [must  ] lit-fetch              没有精读记录（reading/index.json）也没有读书卡
+✗ [must  ] ideas-jury             候选 idea 没经过跨模型陪审团（没有 review_ideas.json）
+· [must  ] ideas-candidates-monotone 没记发散段产出数（generated_n），看不出来——**看不出来不等于违规**
+· [must  ] ideas-two-lists        没有标记为数据不可及的候选——「都做得了」和「这一步没做」分不出来，不判
+✗ [must  ] power-before-run       没算功效就跑了分析
+· [must  ] power-fail-stop        没有 power.json
+· [must  ] power-effect-source    没有 power.json
+✓ [must  ] state-not-hand-written 状态文件的锚点形状正常
+· [must  ] self-review-disclosed  还没审稿
+· [must  ] byo-idea-declared      模型自己出的题，这条不适用
+✗ [must  ] research-type-declared plan.json 没声明 research_type——要不要做识别审计、论文许不许下因果结论都靠它
+· [must  ] open-items-accounted   还没走审稿循环
+✗ [must  ] staggered-did-cs       处理分 2 批却用 did（TWFE）——说明书：分批实施主规格用 did_cs。（判据是诊断里的批次数，不是估计量的名字：`ols_fe` 加一个 post 哑变量与双向固定效应，算的跟 did 一样，坑也一样）
+✗ [should] robustness-locked      计划里没有稳健性清单——事前锁定至少 3 项
+· [should] proxy-gap              没有 binding.json
+✗ [must  ] route-after-run        跑了分析没开方（留痕里没有 oss route）——诊断出病不治等于没诊断
+· [must  ] route-disposed         没有 route.json
+✗ [must  ] identification-audit   因果研究没经过识别审计（没有 review_plan.json）
+· [must  ] audit-disposed         没有 route.json
+· [must  ] causal-estimand        老计划没写研究类型：估计量三步按老规矩不查
+· [should] causal-diagnostics-cited 还没写论文
+· [must  ] survey-design-declared 画像没有调查信号
+· [must  ] survey-descriptive-weighted 画像没有调查信号
+· [must  ] descriptive-estimand   研究类型不是描述
+· [should] descriptive-magnitude  不是 describe 的描述研究
+· [must  ] tables                 还没写论文
+· [must  ] figures-captioned      还没写论文
+· [must  ] no-process-language    还没写论文
+· [must  ] causal-wording         还没写论文
+· [should] abstract-numbers       还没写论文
+· [must  ] novelty-gate           还没写论文
+· [should] desk-before-referees   还没审稿
+· [must  ] three-referees         论文没经过任何审稿
+· [should] editor-synthesis       审稿人不足两位
+· [must  ] fail-rereviewed        还没审稿
+· [must  ] export-gates           没有导出
+→ <RUN>/eval_report.json｜过 2 / 不过 8 / 不适用 28
+✗ 7 条 must 级规则没过：lit-fetch、ideas-jury、power-before-run、research-type-declared、staggered-did-cs、route-after-run、identification-audit

@@ -1,0 +1,18 @@
+{
+  "name": "codex",
+  "label": "Codex / OpenCode",
+  "skills_dir": "~/.agents/skills",
+  "project_skills_dir": ".agents/skills",
+  "substitutes_arguments": false,
+  "honors_allowed_tools": true,
+  "invocation": "/name",
+  "invocation_note": "从 .agents/skills 发现技能；是否替换 $ARGUMENTS 未实测，按不替换准备（说明书里那句注释在两种情况下都成立）",
+  "executor_model_env": [],
+  "doctor_checks": ["agents-skills-dir"],
+  "managed_doc": "AGENTS.md",
+  "index_file": "",
+  "detect_env": [],
+  "detect_markers": [".agents"],
+  "limits": "没实测过是否替换 $ARGUMENTS、是否认 allowed-tools；两处都按保守方向取值",
+  "source": "skill reference/nature-skills/docs/open-source-agent-frameworks.md §OpenCode（项目 .agents/skills 与全局 ~/.agents/skills）。两个未实测字段取保守方向、且方向相反：substitutes_arguments 取 false——它只要求说明书带上那句注释，宿主真会替换也无害；honors_allowed_tools 取 true——保留原行，宿主不认就是忽略，宿主认了则限制仍在，而擅自删掉会在认它的宿主上悄悄放宽权限。detect_markers 只留 .agents：.codex 目录未见文档记载，不作探测依据——没有出处的探测依据跟没有出处的事实一样，猜错了看起来也是对的"
+}

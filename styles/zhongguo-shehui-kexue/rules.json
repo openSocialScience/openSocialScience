@@ -1,0 +1,42 @@
+{
+ "journal": "中国社会科学",
+ "word_limit": 20000,
+ "word_limit_includes_references": true,
+ "max_tables_figures": null,
+ "double_blind": false,
+ "abstract_max_words": 300,
+ "abstract_no_citations": false,
+ "reference_style": "页下注（每页单独编号），遵照「中国社会科学杂志社关于引文注释的规定」",
+ "supplementary_max_pages": null,
+ "figures_inline": true,
+ "figure_max_width": null,
+ "layout": {
+  "margin_top_cm": null,
+  "margin_bottom_cm": null,
+  "margin_left_cm": null,
+  "margin_right_cm": null,
+  "two_sided": false,
+  "header_odd": "",
+  "header_even": "",
+  "footer_odd": "",
+  "footer_even": "",
+  "page_number": "",
+  "page_number_format": "arabic",
+  "page_number_start": null,
+  "columns": 1,
+  "column_gap_cm": null,
+  "line_numbers": false,
+  "footnote_restart_each_page": true,
+  "footnote_font": "仿宋",
+  "footnote_size": "5号",
+  "paper_size": "A4",
+  "body_font": "宋体",
+  "body_size": "小4号"
+ },
+ "other_requirements": [
+  "稿件请用A4纸格式，正文简体横排，研究论文类稿件宋体小4号，36字×35行——纸张与正文字体字号已落进 layout；「36字×35行」隐含的版心要靠字体度量推算，不是须知给的数，故不折成页边距",
+  "注释请用页下注（每页单独编号）；注文排5号仿宋体——字体字号已落进 layout，不只是写在这里",
+  "需提供稿件英文题目，300字以内的中、英文摘要和3—5个中、英关键词",
+  "学术述评、读者评议等稿件为5号宋体双栏、38字×40行——本包按研究论文一类排，未设分栏"
+ ]
+}

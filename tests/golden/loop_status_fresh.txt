@@ -1,0 +1,7 @@
+EXIT 0
+---
+决定 review_first｜还没有任何审稿；先审一轮
+轮次 0/2｜状态 no_reviews｜因果审计检测 none
+  锚点：「政策冲击与产出」｜edu_001｜计划指纹 f2da0f74bdb9
+  阶段 6-run（in_progress）｜冻结锚点 edu_001
+→ <RUN>/loop_state.json

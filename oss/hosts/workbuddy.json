@@ -1,0 +1,18 @@
+{
+  "name": "workbuddy",
+  "label": "WorkBuddy（腾讯）",
+  "skills_dir": "~/.workbuddy/skills",
+  "project_skills_dir": ".workbuddy/skills",
+  "substitutes_arguments": false,
+  "honors_allowed_tools": true,
+  "invocation": "/name",
+  "invocation_note": "从 ~/.workbuddy/skills 与项目 .workbuddy/skills 发现技能；是否替换 $ARGUMENTS 无出处，按不替换准备（说明书里那句注释在两种情况下都成立）",
+  "executor_model_env": [],
+  "doctor_checks": ["workbuddy-skills-dir"],
+  "managed_doc": "",
+  "index_file": "",
+  "detect_env": [],
+  "detect_markers": [".workbuddy"],
+  "limits": "已初步实测（2026-09-07，5.5.3）：技能认得出、bash 跑得了本机命令行、说明书的判断规则会被执行；**是否替换 $ARGUMENTS 仍未测到**，按不替换准备；不写项目指令文件；它跑的是腾讯混元（Hy3），`.env` 的 EXECUTOR_MODEL 要照实改，否则留痕里的执行者是假的",
+  "source": "腾讯云 WorkBuddy（CodeBuddy 团队）。技能目录 ~/.workbuddy/skills、项目级 .workbuddy/skills 与「所有仓库均是 SKILL.md 格式」「完全兼容 OpenClaw 技能格式，无需任何修改，也支持 Claude Code 与 Codex 的 SKILL.md」出自 segmentfault.com/a/1190000048110145（2026-09-07 取）；frontmatter 有 name / description / allowed-tools（Read,Write,Bash）出自 xmsumi.com/detail/2691（同日取）；有 CLI 模式、在本地工作目录里跑、能调系统里装好的工具、桌面端有 Bash 与 PowerShell 两条工具通道、危险命令拦截与授权确认，出自腾讯云开发者社区 article/2708316 与 ask/2212321（同日取）。三条按保守方向取值：substitutes_arguments 取 false——只要求说明书带上那句注释，宿主真会替换也无害；honors_allowed_tools 取 true——有出处说 frontmatter 认 allowed-tools，保留原行；managed_doc 取空——擅自往 CLAUDE.md / AGENTS.md 写托管块，而宿主根本不读那份文件的话，用户会以为配过了。detect_markers 只留 .workbuddy：它是有出处的项目级技能目录，且罕见。executor_model_env 留空：没有出处说它暴露当前模型，跨模型审稿要靠 .env 里的 EXECUTOR_MODEL。上面几条原本全来自第三方教程。2026-09-07 在 5.5.3 真机跑了一次，以下改为实测：① 技能铺进 ~/.workbuddy/skills 后（重启应用）在界面上认得出，标「本地」；② 它真的跑得了本机命令行——`oss` 找得到，且报出的「工作区里 23 个旧 run」与最近几条 run 的主题（民主、教育、收入不平等、错误定价）与磁盘实际内容逐条对上，不是编的；③ 说明书里的判断规则会被执行——缺 data 时按「停下来问用户，别猜」停住了，还把这个问题渲染成了它自己的选择器。仍未测到的只剩一条：这次是空参数进来的，$ARGUMENTS 替不替换没验到，保持 false。executor_model_env 仍留空——扫过 app.asar 里全部 process.env.*，没有暴露「当前模型」的变量（CODEBUDDY_BIG_SLOW_MODEL 是配置覆盖，不是运行时上报）；界面模型选择器显示 Hy3、模型表里是 tencent/hy3 与 hy3-free，即腾讯混元，跨家族判定靠 oss/host/reviewer.py 的 tencent 家族"
+}

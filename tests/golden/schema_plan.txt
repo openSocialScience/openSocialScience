@@ -1,0 +1,874 @@
+EXIT 0
+---
+{
+  "$defs": {
+    "Benchmark": {
+      "additionalProperties": false,
+      "description": "现实核查用的外部已知数（Firebaugh「现实核查」；描述骨架设计稿第六节）。**出处必填**。",
+      "properties": {
+        "quantity": {
+          "description": "哪个量：例「2017 年城镇就业人员周平均工作时间」",
+          "title": "Quantity",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "unit": {
+          "default": "",
+          "title": "Unit",
+          "type": "string"
+        },
+        "source": {
+          "description": "出处：哪份统计、哪张表或哪一页",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quantity",
+        "value",
+        "source"
+      ],
+      "title": "Benchmark",
+      "type": "object"
+    },
+    "BinnedSpec": {
+      "description": "分箱分析的声明。**没在计划里声明就不跑**——事前锁定的意义就在这。",
+      "properties": {
+        "by": {
+          "description": "斜率随哪一列变（通常是队列或年份）",
+          "title": "By",
+          "type": "string"
+        },
+        "treatment": {
+          "default": "",
+          "description": "对哪个变量算斜率。留空则用主处理变量",
+          "title": "Treatment",
+          "type": "string"
+        },
+        "split": {
+          "default": "",
+          "description": "按哪一列分组画多条线",
+          "title": "Split",
+          "type": "string"
+        },
+        "bins": {
+          "default": 6,
+          "title": "Bins",
+          "type": "integer"
+        },
+        "bivariate": {
+          "default": false,
+          "description": "True = 各箱内只跑二元回归（看原始形状）。缺省 False：各箱内带主规格的控制变量与固定效应——评审：「拿一个双变量截面相关去质疑一个双向固定效应加控制变量的估计，两者根本不是同一个量」。分箱要跟主规格比，就得用同一个量",
+          "title": "Bivariate",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "by"
+      ],
+      "title": "BinnedSpec",
+      "type": "object"
+    },
+    "DescriptionSpec": {
+      "additionalProperties": false,
+      "description": "描述研究「问的是什么」的另一半（描述骨架设计稿第三节）；描述量与目标总体写在 `estimand`。\n\n**估计量是 `describe` 时必填 `kind`**；走 `ols_fe` 的描述类计划（条件关联、从因果降级来的）可以不写这一块。",
+      "properties": {
+        "kind": {
+          "default": "",
+          "description": "level 水平 / 比例；distribution 分布；gap 组间差；trend 趋势；association 条件关联（走 ols_fe）",
+          "enum": [
+            "",
+            "level",
+            "distribution",
+            "gap",
+            "trend",
+            "association"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "groups": {
+          "description": "比较的组（列名，至多两列）；组间差的参照组是排序后的第一类",
+          "items": {
+            "type": "string"
+          },
+          "title": "Groups",
+          "type": "array"
+        },
+        "over": {
+          "default": "",
+          "description": "看哪段时间（时间列），趋势用",
+          "title": "Over",
+          "type": "string"
+        },
+        "statistic": {
+          "default": "mean",
+          "description": "用哪个统计量：mean 均值 / 比例；median 中位数（只支持 level 与 gap）。**收入、财富、工时这类右偏的量该用 median**——均值被尾部拉走。中位数的区间没有解析公式，按抽样设计做自助法（设计稿 docs/design/2026-09-23-median-gap.md）",
+          "enum": [
+            "mean",
+            "median"
+          ],
+          "title": "Statistic",
+          "type": "string"
+        },
+        "change": {
+          "default": "",
+          "description": "social 总体随时间变（重复截面合适）/ individual 个人随时间变（要面板）/ none",
+          "enum": [
+            "",
+            "social",
+            "individual",
+            "none"
+          ],
+          "title": "Change",
+          "type": "string"
+        },
+        "meaningful_difference": {
+          "default": "",
+          "description": "有意义的最小差别，带单位与出处或理由——给论文与审稿看；环节 4 的精度按 oss power --effect 算",
+          "title": "Meaningful Difference",
+          "type": "string"
+        },
+        "benchmarks": {
+          "description": "外部已知数，现实核查用",
+          "items": {
+            "$ref": "#/$defs/Benchmark"
+          },
+          "title": "Benchmarks",
+          "type": "array"
+        }
+      },
+      "title": "DescriptionSpec",
+      "type": "object"
+    },
+    "DesignLock": {
+      "additionalProperties": false,
+      "description": "用户用 `--- design:` 锁死的设计键，**原样抄一份进 `plan.json`**。\n\n只有五个键，都可缺省；键名跟 `AnalysisPlan` 本体**一一对应**——用户那边写\n`fe=firm+year` / `cluster=firm`，抄进来是 `fixed_effects` / `cluster_level`。\n映射表写在 `social-research/rules/input-and-rundir.md`，模型照它抄。\n\n`extra` 是 `forbid`（`BaseModel` 缺省的 `ignore` 在这里是灾难）：\n模型把用户的写法原样照抄成 `{\"fe\": [...], \"cluster\": \"firm\"}` 是这条路上\n**最可能犯的一个错**，而 `ignore` 会让它变成一个五个键全空的锁——\n锁上了、什么也没锁住、没有任何人会发现。\n\n**空串 / 空列表 = 这个键没锁**，不参与比对：`design:` 五个键都可缺省，\n缺省的由模型定，那正是这个字段存在的意义——分清「用户定死的」和「模型可以定的」。\n\n**这不是防篡改。**锁和被锁的是同一份文件，模型两处一起改照样过。\n它防的是**两处写在不同时刻而漂开**：环节 5 抄下用户的键，之后\n`oss route --apply` 打补丁、审稿意见换设计，一路改下来把用户锁的键改掉了，\n而没有人再回头看一眼。",
+      "properties": {
+        "outcome": {
+          "default": "",
+          "description": "用户写的 `outcome=`",
+          "title": "Outcome",
+          "type": "string"
+        },
+        "treatment": {
+          "default": "",
+          "description": "用户写的 `treatment=`",
+          "title": "Treatment",
+          "type": "string"
+        },
+        "fixed_effects": {
+          "description": "用户写的 `fe=firm+year`，按 `+` 拆成列表。**顺序不算数**——固定效应是个集合，`firm+year` 与 `year+firm` 是同一个设计",
+          "items": {
+            "type": "string"
+          },
+          "title": "Fixed Effects",
+          "type": "array"
+        },
+        "cluster_level": {
+          "default": "",
+          "description": "用户写的 `cluster=`",
+          "title": "Cluster Level",
+          "type": "string"
+        },
+        "estimator": {
+          "default": "",
+          "description": "用户写的 `estimator=`。只认工具箱清单里的那十一个（ols_fe、did、did_cs、event_study、iv、iptw、rdd、describe、logit、ologit、mixed）；不在清单里**停下来告诉用户**，不替换（设计稿第三节）",
+          "title": "Estimator",
+          "type": "string"
+        }
+      },
+      "title": "DesignLock",
+      "type": "object"
+    },
+    "Estimand": {
+      "additionalProperties": false,
+      "description": "估计量三步（Lundberg 等 2021）：先说要问的量，再说靠什么假设对得上，最后才挑方法。\n\n**估计方法的选择一律回到这里说理由**——计划里只有方法和变量、没有「问的是什么」，\n审稿人就无从判断方法选得对不对（因果骨架设计稿 3.1）。",
+      "properties": {
+        "unit_quantity": {
+          "default": "",
+          "description": "单位层面的量：例「同一个人，受过与没受过高等教育时的年收入之差」",
+          "title": "Unit Quantity",
+          "type": "string"
+        },
+        "target_population": {
+          "default": "",
+          "description": "目标总体：例「2017 年中国 18–60 岁城镇就业人口」。用了抽样调查的，写明权重怎么用",
+          "title": "Target Population",
+          "type": "string"
+        },
+        "assumptions": {
+          "description": "识别假设，逐条列（平行趋势、排他性、无未观测混淆……）",
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "link": {
+          "default": "",
+          "description": "经验估计量怎么对上理论估计量：一两句",
+          "title": "Link",
+          "type": "string"
+        }
+      },
+      "title": "Estimand",
+      "type": "object"
+    },
+    "MeasurementSpec": {
+      "additionalProperties": false,
+      "description": "测量研究「凭什么说这几道题量的是那个东西」（测量骨架设计稿第六节）。\n\n对应因果的「估计量三步」、描述的「描述量 + 目标总体」。\n\n**这一块是给程序核的声明，不是给人读的论证**（设计稿第二节）：效度、信度、构念\n全是语义判断，做成词表就是一项换个说法就失灵的检测。所以作者在这里自己声明，\n程序只核声明的合法性与完整性——**声明了什么、产出在不在**，论文里怎么论证不读。\n\n不做测量研究就别写这一块（`AnalysisPlan.measurement` 留 `None`）：\n写了，就得说清测的是哪个构念、拿哪几道题测。",
+      "properties": {
+        "kind": {
+          "default": "",
+          "description": "instrument 造尺子（新编量表、新建指数、新造指标）/ application 用尺子（拿现成量表做实质研究，但测量本身是主张的一部分）",
+          "enum": [
+            "",
+            "instrument",
+            "application"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "construct": {
+          "default": "",
+          "description": "要测的那个看不见的东西，一句话：例「对陌生人的一般信任」",
+          "title": "Construct",
+          "type": "string"
+        },
+        "indicators": {
+          "description": "题目或变量的列名",
+          "items": {
+            "type": "string"
+          },
+          "title": "Indicators",
+          "type": "array"
+        },
+        "validity_evidence": {
+          "description": "要给哪几类效度证据：content（内容）/ structural（结构）/ criterion（效标关联）/ discriminant（区分）。**造尺子必填**——「效度良好」这种整体判断不收，它是结论不是证据",
+          "items": {
+            "enum": [
+              "content",
+              "structural",
+              "criterion",
+              "discriminant"
+            ],
+            "type": "string"
+          },
+          "title": "Validity Evidence",
+          "type": "array"
+        },
+        "evidence_outputs": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "**哪一类证据的产出叫什么名字**：键是类别（content（内容）/ structural（结构）/ criterion（效标关联）/ discriminant（区分），外加 reliability 信度系数、equivalence 跨组测量等价检验），值是这份产出在结果里的名字——`{{result:<名>.coef}}` 的名、`{{diag:<名>}}` 的名、稳健性的 label、或图名。oss 不替作者做因子分析（设计稿第十一节），所以产出在别处算，算完在这里登记一行。**检测核的是这一栏，不是论文里的论证**：声明了哪几类效度证据，就得有对应的产出登记；只登记了 reliability 等于只报了信度",
+          "propertyNames": {
+            "enum": [
+              "content",
+              "structural",
+              "criterion",
+              "discriminant",
+              "reliability",
+              "equivalence"
+            ]
+          },
+          "title": "Evidence Outputs",
+          "type": "object"
+        },
+        "groups_compared": {
+          "description": "跨组比较的分组变量（列名），没有就留空",
+          "items": {
+            "type": "string"
+          },
+          "title": "Groups Compared",
+          "type": "array"
+        },
+        "source_quality": {
+          "default": "",
+          "description": "指标数据从哪来：self_report 自报 / administrative 行政记录 / logged 后台日志 / mixed 混合",
+          "enum": [
+            "",
+            "self_report",
+            "administrative",
+            "logged",
+            "mixed"
+          ],
+          "title": "Source Quality",
+          "type": "string"
+        }
+      },
+      "title": "MeasurementSpec",
+      "type": "object"
+    },
+    "MixedSpec": {
+      "additionalProperties": false,
+      "description": "多层模型块（设计稿 `docs/design/2026-09-25-logit-multilevel.md` 第三节）。\n\n**`estimator: mixed` 时必填**，而且 `rationale` 不能留空也不能写 `se`。",
+      "properties": {
+        "group": {
+          "default": "",
+          "description": "二层单位那一列（省份、学校、社区……）。**必填**；少于 30 个警告、少于 10 个拒跑——方差分量在那么少的组上基本是噪声",
+          "title": "Group",
+          "type": "string"
+        },
+        "rationale": {
+          "default": "",
+          "description": "**为什么要用多层模型，必填**：variance 方差分解本身是研究问题（「省际差异占几成」）／shrinkage 要各组的经验贝叶斯估计／se 只是想把聚类处理掉——**写 se 直接拒**，那种情形用 estimator: ols_fe + cluster_level 更稳，而且不多假设随机效应的分布",
+          "enum": [
+            "",
+            "variance",
+            "shrinkage",
+            "se"
+          ],
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "title": "MixedSpec",
+      "type": "object"
+    },
+    "RealBenchmark": {
+      "additionalProperties": false,
+      "description": "合成样本要跟哪份真实数据对账（仿真骨架设计稿 4.3 乙）。\n\n只在主张「这批小人代表真人」时要填。`pairs` 是**列的配对**，不是变量名清单：\n合成数据的列名跟真实调查的列名几乎不会一样，对账要知道哪一列对哪一列。",
+      "properties": {
+        "data": {
+          "default": "",
+          "description": "真实对照数据：数据包名（data/<名>）或运行目录里那份数据的文件名",
+          "title": "Data",
+          "type": "string"
+        },
+        "pairs": {
+          "description": "[[合成列, 真实列], …]——方差比与关系方向都按这几对算",
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Pairs",
+          "type": "array"
+        }
+      },
+      "title": "RealBenchmark",
+      "type": "object"
+    },
+    "RobustnessSpec": {
+      "description": "一项稳健性检验：**主计划之上的一个覆盖补丁**。\n\n这个字段原本是一串散文（\"R1 换结果变量：以职业声望替代 SEI\"）。\n但 `robustness` 存在的全部理由是**事前锁定、事后不许改**——\n锁一份没人能执行、没人能核对的散文，等于没锁：\n真跑的时候照样想跑什么跑什么，事后再写一段话说「我跑了这些」。\n\n改成补丁之后，`oss run` 会**跟主规格同一次**把它们全跑掉，\n结果一并写进 `results.json`，论文可以直接引用具体数值。\n（PLAN.md 九之一 ⑤）\n\n`None` 表示这一项不覆盖，沿用主计划。",
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "rationale": {
+          "default": "",
+          "description": "为什么要做这项检验",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outcome"
+        },
+        "treatment": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Treatment"
+        },
+        "controls": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Controls"
+        },
+        "fixed_effects": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fixed Effects"
+        },
+        "cluster_level": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cluster Level"
+        },
+        "weights": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "覆盖抽样权重列。**空串是「这一项不加权」**（调查数据最常见的一项稳健性就是不加权复核），`None` 才是「沿用主计划」——两者不能混",
+          "title": "Weights"
+        },
+        "sample_filter": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sample Filter"
+        },
+        "interactions": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Interactions"
+        },
+        "executable": {
+          "default": true,
+          "description": "散文式的旧条目跑不了。**静默接受等于假装锁上了**，所以要标出来",
+          "title": "Executable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "label"
+      ],
+      "title": "RobustnessSpec",
+      "type": "object"
+    },
+    "SimulationSpec": {
+      "additionalProperties": false,
+      "description": "仿真研究「这个模型里，这套机制会不会产生这个模式」（仿真骨架设计稿第七节）。\n\n对应因果的「估计量三步」、描述的「描述量 + 目标总体」、测量的「构念 + 指标 + 效度证据」。\n\n**不写 `box`**：货箱路径由 `oss sim import` 写进 `sim_state.json`，计划里再抄一遍\n就是两处真相——检测一律以盘上那份为准（设计稿第七节）。\n\n不做仿真研究就别写这一块（`AnalysisPlan.simulation` 留 `None`）：\n写了，就得说清检验的是哪套机制、该重现哪个模式。",
+      "properties": {
+        "mechanism": {
+          "default": "",
+          "description": "要检验的机制，一句话：模型里什么导致什么。例「邻里同质化偏好导致居住隔离」",
+          "title": "Mechanism",
+          "type": "string"
+        },
+        "pattern": {
+          "default": "",
+          "description": "该重现的**已知模式**（Grimm 等 2020 的面向模式验收）：模型跑对了的话，应当出现哪个现实里已经观察到的规律。例「隔离指数随偏好阈值单调上升，且在阈值 0.3 附近出现拐点」",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "conditions_compared": {
+          "description": "要比较的条件名（对应配料单 conditions 的键）；单条件研究留空——单条件只能做模式展示，不能做条件间比较",
+          "items": {
+            "type": "string"
+          },
+          "title": "Conditions Compared",
+          "type": "array"
+        },
+        "stands_in_for_humans": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "**这批合成样本是不是用来代表真人**。为真就要跟真实调查对账（方差比、关系方向；Argyle 等 2023 的算法保真度、Bisbee 2024 的方差压扁）。很多 ABM 本来就不主张小人等于真人，它做的是「机制能不能产生这个模式」——那种填 false。**这一栏必须表态，不许留空。**留空与 false 原先是同一个值，于是「声明了不代表真人」与「压根没想过」分不出来，而后者是零代价地绕过对账那项检测。**这不是一栏猜不出答案的字段**——小人代不代表真人，是作者对自己主张的表态。填 false 也是一个positive 的主张：论文里就只能说「在本模型内」的话",
+          "title": "Stands In For Humans"
+        },
+        "real_benchmark": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RealBenchmark"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "跟哪份真实数据对账、哪一列对哪一列。`stands_in_for_humans` 为真时必填"
+        }
+      },
+      "title": "SimulationSpec",
+      "type": "object"
+    },
+    "SurveyDesign": {
+      "additionalProperties": false,
+      "description": "计划里声明的抽样设计（调查层设计稿第四节）。权重列仍写在 `AnalysisPlan.weights`。\n\n**画像有调查信号的计划，这一块要么写设计、要么写不按调查处理的理由**——两样都空，\n声明了研究类型的计划 `oss run` 拒绝，老计划只警告（设计稿第六节）。",
+      "properties": {
+        "strata": {
+          "default": "",
+          "description": "分层列；公开版没给分层变量就空着，并在 design_source 写明",
+          "title": "Strata",
+          "type": "string"
+        },
+        "psu": {
+          "default": "",
+          "description": "初级抽样单位列。写了它，主规格的标准误按抽样设计算，不再按 cluster_level",
+          "title": "Psu",
+          "type": "string"
+        },
+        "weight_use": {
+          "default": "",
+          "description": "权重怎么用：descriptive（均值、比例、分布——必须加权）/ model（行为、因果模型——加权与不加权两版都报，差得多要解释）。Deaton 1997 第 2 章 2.1",
+          "enum": [
+            "",
+            "descriptive",
+            "model"
+          ],
+          "title": "Weight Use",
+          "type": "string"
+        },
+        "design_source": {
+          "default": "",
+          "description": "设计从哪来：用户说的原话 / 登记（码本页）/ 画像疑似未确认",
+          "title": "Design Source",
+          "type": "string"
+        },
+        "not_survey_reason": {
+          "default": "",
+          "description": "有调查信号却不按调查处理时的理由（留痕，合规检查看）",
+          "title": "Not Survey Reason",
+          "type": "string"
+        }
+      },
+      "title": "SurveyDesign",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "plan_id": {
+      "default": "",
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "idea_id": {
+      "default": "",
+      "title": "Idea Id",
+      "type": "string"
+    },
+    "research_type": {
+      "default": "",
+      "description": "主类型：causal / descriptive / measurement / simulation。**按「想下什么结论」定**——想说「X 影响 Y」就是 causal，哪怕只用普通回归（那样也要过识别审计）。随锚点冻结；冻结后只许在识别站不住时从 causal 降为 descriptive（oss/gates/research_type.py）。空串 = 老计划没声明：识别审计按估计量兜底判，`oss run` 会警告",
+      "enum": [
+        "",
+        "causal",
+        "descriptive",
+        "measurement",
+        "simulation"
+      ],
+      "title": "Research Type",
+      "type": "string"
+    },
+    "also": {
+      "description": "论文里其它部分的类型（例：先自建指数再估影响——主类型 causal，also 写 measurement）。主类型走整套流程，这里列的只加它那类的检查（measurement 会多请一位测量审稿人）。因果不进 also：论文只要有一部分下因果结论，主类型就是 causal（非因果类型的正文不许有因果说法）",
+      "items": {
+        "enum": [
+          "descriptive",
+          "measurement",
+          "simulation"
+        ],
+        "type": "string"
+      },
+      "title": "Also",
+      "type": "array"
+    },
+    "estimand": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Estimand"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "估计量三步。**声明为 causal 的计划必填**（因果骨架设计稿 3.1），`oss run` 前核；老计划没写只警告"
+    },
+    "control_roles": {
+      "additionalProperties": {
+        "enum": [
+          "confounder",
+          "precision",
+          "mediator",
+          "collider",
+          "other"
+        ],
+        "type": "string"
+      },
+      "description": "每个控制变量的角色：confounder（混杂）/ precision（提高精度）/ other。**标 mediator（中介）或 collider（碰撞）的，oss run 拒绝**——那两类不该控制，控了会把估计推离因果效应（Rohrer 2018）。声明为 causal 的计划每个控制变量都要标",
+      "title": "Control Roles",
+      "type": "object"
+    },
+    "estimator": {
+      "default": "ols_fe",
+      "description": "ols_fe（关联）/ did（政策冲击对比，双向固定效应）/ did_cs（分批双重差分，Callaway–Sant'Anna——**政策分批实施时用这个作主规格**，did 只作对比）/ event_study（逐年展开）/ iv（借力变量）/ rdd（断点）/ describe（分组描述：水平 / 分布 / 组差 / 趋势，不带控制变量；描述类研究用）/ logit（0/1 结局，**报的是平均边际效应不是系数**）/ ologit（三个以上有序取值的态度量表；**必验平行线假定**，判词进诊断）。**0/1 结局先考虑 ols_fe**：它跑出来就是线性概率模型，系数直接读成「概率高 X 个百分点」，固定效应也干净——logit 是多一个选择，不是更高级/ mixed（多层模型·随机截距，**主结果是 ICC**）：**只有「方差分解本身是研究问题」时才用**，想处理聚类用 ols_fe + cluster_level，那个更稳",
+      "title": "Estimator",
+      "type": "string"
+    },
+    "instruments": {
+      "description": "iv：借力变量。**它的核心假设（只通过处理影响结果）在数学上无法用数据检验**——工具能做的只有每次都把这句话说出来",
+      "items": {
+        "type": "string"
+      },
+      "title": "Instruments",
+      "type": "array"
+    },
+    "running": {
+      "default": "",
+      "description": "rdd：决定过没过线的那个变量",
+      "title": "Running",
+      "type": "string"
+    },
+    "cutoff": {
+      "default": 0.0,
+      "description": "rdd：分数线",
+      "title": "Cutoff",
+      "type": "number"
+    },
+    "bandwidth": {
+      "default": 0.0,
+      "description": "rdd：只看线两侧多宽的范围。**这是人选的**，所以必须报敏感性",
+      "title": "Bandwidth",
+      "type": "number"
+    },
+    "unit": {
+      "default": "",
+      "description": "did/event_study：个体或地区标识",
+      "title": "Unit",
+      "type": "string"
+    },
+    "time": {
+      "default": "",
+      "description": "did/event_study：时间列",
+      "title": "Time",
+      "type": "string"
+    },
+    "treat_time": {
+      "default": "",
+      "description": "did/event_study：每个单位**开始被处理的时间**所在的列；缺失表示从未处理。用这一列而不是 treated×post，是因为现实里的政策几乎都是分批铺开的，而分批正是双向固定效应最容易出偏的场合",
+      "title": "Treat Time",
+      "type": "string"
+    },
+    "leads": {
+      "default": 4,
+      "description": "event_study：往前看几期",
+      "title": "Leads",
+      "type": "integer"
+    },
+    "lags": {
+      "default": 4,
+      "description": "event_study：往后看几期",
+      "title": "Lags",
+      "type": "integer"
+    },
+    "labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "表和图里印的**短标签**：列名 → 名字（{\"cls_mgr\": \"管理与专业阶级\"}）。不填就退回 binding.json 里该列的构念名，再没有就印原列名——发表用的表不该出现 cls_mgr、age2 这种列名。**哑变量展开（class4 → cls_mgr / cls_clerk / cls_service）与构造项（age2）只能从这里来**，binding 里没有它们的行。交互项不用填，`a*b` 会拼成「A × B」。英文稿填英文——英文稿的表出现中文会被拒",
+      "title": "Labels",
+      "type": "object"
+    },
+    "outcome": {
+      "default": "",
+      "title": "Outcome",
+      "type": "string"
+    },
+    "treatment": {
+      "default": "",
+      "title": "Treatment",
+      "type": "string"
+    },
+    "controls": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Controls",
+      "type": "array"
+    },
+    "fixed_effects": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Fixed Effects",
+      "type": "array"
+    },
+    "cluster_level": {
+      "default": "",
+      "title": "Cluster Level",
+      "type": "string"
+    },
+    "weights": {
+      "default": "",
+      "description": "抽样权重列。**调查数据不加权的估计通常是有偏的**——CGSS/CFPS/GSS 这类数据按复杂抽样设计采集，各人入样概率不同，不加权算出来的是「样本里的中国」，不是「中国」。画像检出了权重列而这里留空时，`oss route` 会开一条处方要求交代（`weights_unused`）。**留空是一个需要理由的选择，不是默认**。**七种估计量都真加权**（含 describe）；did_cs 要求权重在单位内不变",
+      "title": "Weights",
+      "type": "string"
+    },
+    "survey": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SurveyDesign"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "抽样设计（调查层设计稿第四节）。**画像标了调查信号就要写**：分层、初级抽样单位、权重怎么用、设计从哪来；不按调查处理就只写 not_survey_reason。`None` 是老计划或非调查数据"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DescriptionSpec"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "描述研究的描述块（描述骨架设计稿第三节）：kind / groups / over / change / meaningful_difference / benchmarks。估计量是 describe 时必填 kind；描述量与目标总体写在 estimand"
+    },
+    "measurement": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MeasurementSpec"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "测量研究的测量块（测量骨架设计稿第六节）：kind / construct / indicators / validity_evidence / groups_compared / source_quality。**构念与指标必填**；造尺子（kind=instrument）还要声明给哪一类效度证据——「效度良好」这种整体判断不收，它是结论不是证据。`None` 是不做测量研究的计划"
+    },
+    "mixed": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MixedSpec"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "多层模型块：group（二层单位那一列）与 rationale（为什么用它）。**estimator: mixed 时必填**——`rationale: se`（只想处理聚类）直接拒，那种情形 ols_fe + cluster_level 更稳。`None` 是不跑多层模型的计划"
+    },
+    "simulation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SimulationSpec"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "仿真研究的仿真块（仿真骨架设计稿第七节）：mechanism / pattern / conditions_compared / stands_in_for_humans / real_benchmark。**机制与该重现的模式必填**；主张合成样本代表真人的还要给出真实对照数据——合成样本的方差会被压扁（Bisbee 2024）。**不写货箱路径**：那是 `oss sim import` 写进 sim_state.json 的，抄一遍就是两处真相。`None` 是不做仿真研究的计划"
+    },
+    "sample_filter": {
+      "default": "",
+      "title": "Sample Filter",
+      "type": "string"
+    },
+    "binned": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BinnedSpec"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "分箱估计的声明。写了交互项就该声明它——交互项假定斜率线性变化，而这个假定几乎从来没人验证过"
+    },
+    "interactions": {
+      "description": "交互项，写成 `a*b` 或 `a*b*c`，由 `run_ols_fe` 现场构造。**不要在数据里预先乘好**——那样没有任何校验能确认乘对了，`paeduc*eduq`（打错一个字母）会静静地产出一列 NaN",
+      "items": {
+        "type": "string"
+      },
+      "title": "Interactions",
+      "type": "array"
+    },
+    "robustness": {
+      "description": "稳健性清单。**锁定后只能跑这些**，跟主规格同一次跑完",
+      "items": {
+        "$ref": "#/$defs/RobustnessSpec"
+      },
+      "title": "Robustness",
+      "type": "array"
+    },
+    "design_locked": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DesignLock"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "用户用 `--- design:` 锁死的那几个键的副本；没有 `--- design:` 就**不写这个字段**。`None`（没锁）与「五个键全空」（锁了但每个键都留空）都不比对，但只有前者该出现在没有自带想法的运行里。写了就由 `oss run` 在跑之前逐键跟计划本体比，不等即拒绝（退出码 6，见 oss/api/analysis.py）"
+    }
+  },
+  "title": "AnalysisPlan",
+  "type": "object"
+}
+
+（plan.json 由 skill 写。`--example` 看填好的样例）

@@ -1,0 +1,21 @@
+EXIT 6
+---
+✓ pretrend_fail 标记为写进局限
+○ [must] staggered_twfe  ← estimator = did，而处理分批实施
+      依据：2 批分批实施；只有 2 批，**异质性判不可靠**——批次太少时这个指标本身不稳定，既不能说有也不能说没有。请直接看下面各批的估计值自行判断。加权平均 +4.614。2010 批 +4.738（0.164，20 个单位）；2014 批 +4.457（0.；Bacon 分解：15% 的权重落在「已处理单位当对照」的坏比较上
+      处置：双向固定效应把已处理的早批当成晚批的对照，各批效应不同时汇总系数不可解释。换 Callaway–Sant'Anna（`did_cs`）：只拿从未处理的单位比，各批效应分别报。应用：oss route --apply staggered_twfe，然后 oss run 重跑。
+≈ [must] pretrend_fail  ← 平行趋势：不成立
+      disclosed：写进局限
+→ <RUN>/route.json
+✗ 1 条 must 级处方待处置——paper check / export 会拦
+
+--- status ---
+EXIT 6
+---
+○ [must] staggered_twfe  ← estimator = did，而处理分批实施
+      依据：2 批分批实施；只有 2 批，**异质性判不可靠**——批次太少时这个指标本身不稳定，既不能说有也不能说没有。请直接看下面各批的估计值自行判断。加权平均 +4.614。2010 批 +4.738（0.164，20 个单位）；2014 批 +4.457（0.；Bacon 分解：15% 的权重落在「已处理单位当对照」的坏比较上
+      处置：双向固定效应把已处理的早批当成晚批的对照，各批效应不同时汇总系数不可解释。换 Callaway–Sant'Anna（`did_cs`）：只拿从未处理的单位比，各批效应分别报。应用：oss route --apply staggered_twfe，然后 oss run 重跑。
+≈ [must] pretrend_fail  ← 平行趋势：不成立
+      disclosed：写进局限
+→ <RUN>/route.json
+✗ 1 条 must 级处方待处置——paper check / export 会拦

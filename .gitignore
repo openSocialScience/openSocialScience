@@ -1,0 +1,62 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.DS_Store
+
+# 只读参考资料，各自是独立仓库，不纳入本项目版本控制
+skill reference/
+
+# 运行产出（只忽略根目录的，docs/runs/ 下的留档要进版本控制）
+/runs/
+
+# setuptools 构建残留
+build/
+
+# 数据包缓存：需要时才下载的公开数据集原件与转出的 CSV，不进仓库
+/data/
+
+# 风格包里的范文与默认模板：范文是版权文件，只在本机读，不进仓库；须知、规则、骨架、行文说明照常进
+styles/*/exemplars/
+styles/_default/
+# 按风格包声明的版式自动生成的 Word 模板：缓存，改了 rules.json 会自己重建
+styles/*/reference.docx
+
+# 裸跑对照的跑单记录：每次铺题写一份（起跑时间 + 那条提示），是本机状态不是留档；
+# 真正要留的账在 archive/<题>-<条件>-<第几次>/meta.json 里
+evals/barerun/.runs/
+
+# 文献召回基准：只保留基线与标了版本的结果文件
+evals/benchmark/lit_recall/results/*.json
+!evals/benchmark/lit_recall/results/baseline_*.json
+!evals/benchmark/lit_recall/results/after_*.json
+
+# 本机运行时产物与本机专属配置，不进仓库
+log/
+# .mcp.json 写死了本机绝对路径，换台机器就不对
+.mcp.json
+
+# ── 以下是开发过程材料，暂不进开源仓库（文件仍在本地）──
+# 真跑产物：后续挑选整理后再逐个加回（加回用 git add -f docs/runs/<文件>）
+docs/runs/
+# 内部设计稿与逐日开发计划
+docs/design/
+# 竞品调研、主张清单、评测结果
+docs/research/
+# 评测装置（barerun / benchmark / traps / injection），建设中
+evals/
+# 旧实现，pyproject 里已注明抢救完即删
+src/
+
+# evals/ 撤出仓库后，这 9 个测它的测试文件也跟着撤——它们在公开仓库里必然
+# 收集失败（ModuleNotFoundError / FileNotFoundError），CI 一路红就是这么来的。
+# 文件仍在本地，evals/ 接回来时一并 git add -f 即可。
+tests/test_barerun_*.py
+tests/test_evalbench*.py
+tests/test_evals_*.py
+tests/test_small_task_fixture.py
+
+# 对内汇报材料（pptx 与讲稿），不是源码，不进仓库
+docs/汇报/

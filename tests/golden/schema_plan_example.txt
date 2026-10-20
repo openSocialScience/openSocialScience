@@ -1,0 +1,147 @@
+EXIT 0
+---
+{
+  "plan_id": "FAKE_plan_001",
+  "idea_id": "idea_001",
+  "research_type": "causal",
+  "also": [],
+  "estimand": {
+    "unit_quantity": "FAKE_同一单位处理与否时结果之差",
+    "target_population": "FAKE_样本所代表的总体",
+    "assumptions": [
+      "FAKE_给定控制变量与固定效应后无未观测混淆"
+    ],
+    "link": "FAKE_双向固定效应下的系数对上平均处理效应"
+  },
+  "control_roles": {
+    "FAKE_var_06": "confounder"
+  },
+  "estimator": "ols_fe",
+  "instruments": [],
+  "running": "",
+  "cutoff": 0.0,
+  "bandwidth": 0.0,
+  "unit": "",
+  "time": "",
+  "treat_time": "",
+  "leads": 4,
+  "lags": 4,
+  "labels": {},
+  "outcome": "FAKE_var_05",
+  "treatment": "FAKE_var_04",
+  "controls": [
+    "FAKE_var_06"
+  ],
+  "fixed_effects": [
+    "FAKE_var_01",
+    "FAKE_var_02"
+  ],
+  "cluster_level": "FAKE_var_01",
+  "weights": "",
+  "survey": null,
+  "description": null,
+  "measurement": null,
+  "mixed": null,
+  "simulation": null,
+  "sample_filter": "",
+  "binned": null,
+  "interactions": [],
+  "robustness": [
+    {
+      "label": "FAKE_换聚类层级",
+      "rationale": "",
+      "outcome": null,
+      "treatment": null,
+      "controls": null,
+      "fixed_effects": null,
+      "cluster_level": null,
+      "weights": null,
+      "sample_filter": null,
+      "interactions": null,
+      "executable": false
+    }
+  ],
+  "design_locked": null
+}
+
+measurement 块（测量类计划要填；上面那份样例是因果类，这一栏是 null）：
+
+· 造尺子——新编量表、新建指数。效度证据按类给，「效度良好」这种整体判断不收，它是结论不是证据；声明了哪几类，evidence_outputs 就要登记那几类的产出叫什么名字：
+{
+  "kind": "instrument",
+  "construct": "对陌生人的一般信任",
+  "indicators": [
+    "q12a",
+    "q12b",
+    "q12c",
+    "q12d"
+  ],
+  "validity_evidence": [
+    "structural",
+    "criterion"
+  ],
+  "evidence_outputs": {
+    "structural": "因子载荷",
+    "criterion": "与捐款行为的相关",
+    "reliability": "内部一致性系数"
+  },
+  "groups_compared": [],
+  "source_quality": "self_report"
+}
+
+· 用尺子——拿现成量表做实质研究。跨组比较的分组变量写进 groups_compared，**跨组就要给测量等价检验的产出**（做不出来就别比组间差，各组各报各的）：
+{
+  "kind": "application",
+  "construct": "对陌生人的一般信任",
+  "indicators": [
+    "trust_general"
+  ],
+  "validity_evidence": [],
+  "evidence_outputs": {
+    "equivalence": "城乡测量等价检验"
+  },
+  "groups_compared": [
+    "urban"
+  ],
+  "source_quality": "self_report"
+}
+
+simulation 块（仿真类计划要填；上面那份样例是因果类，这一栏是 null）：
+
+· 不主张代表真人——做的是「这套机制能不能产生这个已知模式」（Grimm 等 2020 的面向模式验收）。mechanism 说模型里什么导致什么，pattern 说模型跑对了该出现哪个现实里已经观察到的规律：
+{
+  "mechanism": "邻里同质化偏好使住户迁出异质社区，聚集成同质街区",
+  "pattern": "隔离指数随偏好阈值单调上升，且在阈值 0.3 附近出现拐点",
+  "conditions_compared": [
+    "threshold_low",
+    "threshold_high"
+  ],
+  "stands_in_for_humans": false,
+  "real_benchmark": null
+}
+
+· 主张这批合成样本代表真人——**就得给出真实对照数据**：合成样本的方差会被压扁（Bisbee 2024），拿它当调查数据用，标准误会假小、显著性会假强；pairs 是列的配对，合成列在前、真实列在后：
+{
+  "mechanism": "议题接触顺序影响态度极化程度",
+  "pattern": "极化程度随异质信息比例下降，与真实面板调查同向",
+  "conditions_compared": [
+    "homogeneous_feed",
+    "mixed_feed"
+  ],
+  "stands_in_for_humans": true,
+  "real_benchmark": {
+    "data": "cgss2017",
+    "pairs": [
+      [
+        "attitude_score",
+        "a33"
+      ],
+      [
+        "media_hours",
+        "a301"
+      ]
+    ]
+  }
+}
+
+**货箱路径不写进计划**：它由 `oss sim import` 写进 sim_state.json，计划里再抄一遍就是两处真相，检测一律以盘上那份为准。

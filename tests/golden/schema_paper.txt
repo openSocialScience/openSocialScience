@@ -1,0 +1,7 @@
+EXIT 0
+---
+paper.md 是 Markdown，不是 JSON。要求：
+  · 至少五节：摘要 / 引言 / 数据与方法 / 结果 / 讨论
+  · 正文引用结果一律用占位符，不许手打数字：
+      {{result:main.coef}}  {{result:main.se}}
+      {{result:main.p}}     {{result:main.n}}

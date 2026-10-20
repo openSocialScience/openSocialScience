@@ -1,0 +1,371 @@
+{
+ "plan_id": "demo_causal_p1",
+ "idea_id": "idea_001",
+ "research_type": "causal",
+ "also": [],
+ "estimator": "iv",
+ "outcome": "donate",
+ "treatment": "relig_freq",
+ "instruments": [
+  "iv_relcell"
+ ],
+ "controls": [
+  "age",
+  "ln_income",
+  "edu_years",
+  "urban",
+  "male",
+  "han"
+ ],
+ "control_roles": {
+  "age": "confounder",
+  "ln_income": "confounder",
+  "edu_years": "confounder",
+  "urban": "confounder",
+  "male": "confounder",
+  "han": "confounder"
+ },
+ "fixed_effects": [],
+ "cluster_level": "county",
+ "weights": "weight",
+ "sample_filter": "",
+ "interactions": [],
+ "binned": null,
+ "unit": "",
+ "time": "",
+ "treat_time": "",
+ "leads": 0,
+ "lags": 0,
+ "running": "",
+ "description": null,
+ "measurement": null,
+ "mixed": null,
+ "simulation": null,
+ "estimand": {
+  "unit_quantity": "同一个人若宗教活动频率高一档（a6 的一个刻度），其 2011 年发生过社会捐赠的概率之差；以及同一个人在同样变化下，对陌生人信任程度之差。**本研究要的是这两个差的符号是否相反**，不是任一个差的绝对大小。",
+  "target_population": "2012 年中国大陆 18 岁及以上、居住在 CGSS2012 抽样框覆盖地区的成年人。按人权重 weight 加权后代表该总体；weight_use 为 model，加权与不加权两版都报。",
+  "assumptions": [
+   "相关性：同一「出生省 × 出生年三等分 × 性别」格子内其他人的平均宗教活动频率，与本人的宗教活动频率相关（第一阶段 F 要报，弱工具变量按 Stock–Yogo 10% 临界值约 16 判）",
+   "排他性：格内他人的平均虔诚度只通过影响本人的虔诚度来影响本人的捐赠与信任。**这条在数学上无法用数据检验**——它假定成长环境的宗教氛围不通过别的渠道（如地方经济、宗族网络、教育供给）影响捐赠与信任",
+   "留一：格内均值已剔除本人取值，故不存在本人取值出现在等式两边的机械相关",
+   "单调性：格内宗教氛围的提高不会降低任何人的虔诚度（LATE 的识别条件）",
+   "两个结局共用同一处理、同一工具与同一控制集（**但估计样本并不相同**：两组题目分属不同问卷模块，一般化信任那一项的行数约为另两项的两倍，结局间的缺失机制不同）——**符号对比的识别负担低于任一系数本身**：一个「亲社会人格」类的未观测混杂会把两个结局同向推动，因此观察到相反符号，用单一正向混杂解释不通"
+  ],
+  "link": "2SLS 的第二阶段系数即为上述单位层面量在依从者上的局部平均（LATE）。结局为 0/1 时第二阶段是线性概率模型，系数直接读作概率的百分点变化。"
+ },
+ "survey": {
+  "strata": "",
+  "psu": "",
+  "weight_use": "model",
+  "design_source": "CGSS2012 公开版未随数据发布分层与初级抽样单位变量，oss data info cgss 登记里这两格也是空的——按环节 1 契约「公开版没给分层变量就空着，并在 design_source 写明」处理，不猜。权重用文件自带的唯一一列人权重 weight。标准误按 cluster_level=county（采访地点县/区编码 s43，131 个簇，画像判「够用」）聚类。",
+  "not_survey_reason": ""
+ },
+ "labels": {
+  "relig_freq": "宗教活动频率",
+  "donate": "是否捐赠",
+  "trust_stranger": "对陌生人的信任",
+  "trust_general": "一般化信任",
+  "has_relig": "有无宗教信仰",
+  "iv_relcell": "同组他人的平均虔诚度",
+  "age": "年龄",
+  "ln_income": "家庭收入（对数）",
+  "edu_years": "受教育年限",
+  "urban": "城镇",
+  "male": "男性",
+  "han": "汉族",
+  "province": "省份",
+  "county": "县/区"
+ },
+ "robustness": [
+  {
+   "label": "结局：对陌生人的信任",
+   "rationale": "本研究的对照结局。与主规格同处理、同工具、同控制、同样本，只换结局——两者符号是否相反正是研究问题本身，不是事后稳健性",
+   "outcome": "trust_stranger",
+   "executable": true
+  },
+  {
+   "label": "结局：一般化信任",
+   "rationale": "换一种信任测量（「绝大多数人可以信任」，比「陌生人」宽）看对照结论还成不成立",
+   "outcome": "trust_general",
+   "executable": true
+  },
+  {
+   "label": "不加权",
+   "rationale": "调查数据的常规复核。weight_use 是 model，加权与不加权两版都要报；差得多要解释",
+   "weights": "",
+   "executable": true
+  },
+  {
+   "label": "处理：有无宗教信仰",
+   "rationale": "虔诚度用活动频率测量是代理，把「无信仰」与「信而不活跃」并在第 1 档。换成二元的有无信仰，看结论对测量方式敏不敏感",
+   "treatment": "has_relig",
+   "executable": true
+  },
+  {
+   "label": "加省份固定效应",
+   "rationale": "吸收省际差异（宗教构成、经济水平、慈善组织密度），检验结论是否只是省际比较的产物",
+   "fixed_effects": [
+    "province"
+   ],
+   "executable": true
+  },
+  {
+   "label": "只看城镇",
+   "rationale": "城乡的宗教组织化程度与捐赠渠道差别很大，分样本看效应是否同号（分样本后 urban 只剩一个取值、与常数项共线，故这两项的控制集去掉 urban——**修的是规格错误，不是因为结果不好看改规格**）",
+   "sample_filter": "urban == 1",
+   "executable": true,
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "male",
+    "han"
+   ]
+  },
+  {
+   "label": "只看农村",
+   "rationale": "同上，另一半（分样本后 urban 只剩一个取值、与常数项共线，故这两项的控制集去掉 urban——**修的是规格错误，不是因为结果不好看改规格**）",
+   "sample_filter": "urban == 0",
+   "executable": true,
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "male",
+    "han"
+   ]
+  },
+  {
+   "label": "聚类到省",
+   "rationale": "131 个县簇按 Cameron–Miller 够用，但若地区冲击在省一级相关，县级聚类会低估标准误",
+   "cluster_level": "province",
+   "executable": true
+  },
+  {
+   "label": "〔非锁定〕共同样本·捐赠（标准化）",
+   "rationale": "第 1 轮编辑综合「必须改」第 2 条：标题级说法是「方向相反」，但两结局原先跑在不同样本上、单位也不同。限定在两结局都非缺失的行，并把结局标准化，使两个系数同为「每提高一档多少个标准差」",
+   "executable": true,
+   "outcome": "z_donate",
+   "sample_filter": "donate == donate and trust_stranger == trust_stranger"
+  },
+  {
+   "label": "〔非锁定〕共同样本·陌生人信任（标准化）",
+   "rationale": "同上，另一侧。两项并排即为可比的符号对比；**两者之差的正式检验本工具做不了**（iv 只支持一个内生变量），这一点写进局限",
+   "executable": true,
+   "outcome": "z_trust_stranger",
+   "sample_filter": "donate == donate and trust_stranger == trust_stranger"
+  },
+  {
+   "label": "〔非锁定〕加省级协变量·捐赠",
+   "rationale": "第 1 轮编辑综合「必须改」第 1 条①：省际混杂可能同时推高捐赠、压低对陌生人的信任。人均 GDP 数据里没有，用本样本按省算出的汉族比例与城镇化率作等价代理",
+   "executable": true,
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "urban",
+    "male",
+    "han",
+    "prov_han_share",
+    "prov_urban_share"
+   ]
+  },
+  {
+   "label": "〔非锁定〕加省级协变量·陌生人信任",
+   "rationale": "同上，另一个结局——审稿人要求两个方程都加",
+   "executable": true,
+   "outcome": "trust_stranger",
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "urban",
+    "male",
+    "han",
+    "prov_han_share",
+    "prov_urban_share"
+   ]
+  },
+  {
+   "label": "〔非锁定〕年龄非线性与年龄×性别",
+   "rationale": "第 1 轮编辑综合「必须改」第 4 条：工具的变异是「出生年三等分 × 性别」，而年龄只以线性项进入（系数近零），队列效应吸收不掉",
+   "executable": true,
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "urban",
+    "male",
+    "han",
+    "age2",
+    "age3",
+    "age_x_male"
+   ]
+  },
+  {
+   "label": "〔非锁定〕去掉家庭收入",
+   "rationale": "第 1 轮编辑综合「必须改」第 5 条：五成七的样本损耗几乎全在收入一列。去掉它，样本回到约一万行，看第一阶段强度与区间怎么动",
+   "executable": true,
+   "controls": [
+    "age",
+    "edu_years",
+    "urban",
+    "male",
+    "han"
+   ]
+  },
+  {
+   "label": "〔非锁定〕控制格子保留率",
+   "rationale": "同上：工具是在进得了回归的人身上构造的。格子保留率与格内虔诚度的相关为 −0.070，非零，故把它作为协变量看第一阶段是否被它预测",
+   "executable": true,
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "urban",
+    "male",
+    "han",
+    "cell_keep_rate"
+   ]
+  },
+  {
+   "label": "〔非锁定〕只看未跨省迁移者",
+   "rationale": "第 1 轮编辑综合「必须改」第 6 条：工具是同出生省他人 2012 年的现状，已迁出者的参与反映迁入地。限制在现居省＝出生省者（占八成九）重估",
+   "executable": true,
+   "sample_filter": "same_province == 1"
+  },
+  {
+   "label": "〔非锁定〕控制是否跨省迁移",
+   "rationale": "同上，另一种处置：把迁移作为协变量而不是筛样本",
+   "executable": true,
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "urban",
+    "male",
+    "han",
+    "moved_province"
+   ]
+  },
+  {
+   "label": "〔非锁定〕安慰剂·是否投票",
+   "rationale": "第 1 轮编辑综合「必须改」第 4 条下半：若工具捕捉的是队列 × 性别的形成差异而非虔诚度，它对这些与宗教无关的结局也会「有效应」",
+   "executable": true,
+   "outcome": "placebo_vote"
+  },
+  {
+   "label": "〔非锁定〕安慰剂·是否在业",
+   "rationale": "同上，安慰剂之二",
+   "executable": true,
+   "outcome": "placebo_work"
+  },
+  {
+   "label": "〔非锁定〕安慰剂·自评健康",
+   "rationale": "同上，安慰剂之三",
+   "executable": true,
+   "outcome": "placebo_health"
+  },
+  {
+   "label": "〔非锁定〕剔除省 31",
+   "rationale": "第 1 轮编辑综合「必须改」第 1 条②：逐省 leave-one-out，看 +0.044 是否由少数省扛起。取估计样本最大的五个省各剔一次（工具箱没有按簇逐一剔除的装置，这是可做的近似）",
+   "executable": true,
+   "sample_filter": "province != 31"
+  },
+  {
+   "label": "〔非锁定〕剔除省 21",
+   "rationale": "第 1 轮编辑综合「必须改」第 1 条②：逐省 leave-one-out，看 +0.044 是否由少数省扛起。取估计样本最大的五个省各剔一次（工具箱没有按簇逐一剔除的装置，这是可做的近似）",
+   "executable": true,
+   "sample_filter": "province != 21"
+  },
+  {
+   "label": "〔非锁定〕剔除省 10",
+   "rationale": "第 1 轮编辑综合「必须改」第 1 条②：逐省 leave-one-out，看 +0.044 是否由少数省扛起。取估计样本最大的五个省各剔一次（工具箱没有按簇逐一剔除的装置，这是可做的近似）",
+   "executable": true,
+   "sample_filter": "province != 10"
+  },
+  {
+   "label": "〔非锁定〕剔除省 6",
+   "rationale": "第 1 轮编辑综合「必须改」第 1 条②：逐省 leave-one-out，看 +0.044 是否由少数省扛起。取估计样本最大的五个省各剔一次（工具箱没有按簇逐一剔除的装置，这是可做的近似）",
+   "executable": true,
+   "sample_filter": "province != 6"
+  },
+  {
+   "label": "〔非锁定〕剔除省 19",
+   "rationale": "第 1 轮编辑综合「必须改」第 1 条②：逐省 leave-one-out，看 +0.044 是否由少数省扛起。取估计样本最大的五个省各剔一次（工具箱没有按簇逐一剔除的装置，这是可做的近似）",
+   "executable": true,
+   "sample_filter": "province != 19"
+  },
+  {
+   "label": "〔非锁定〕结局：是否进入共同样本",
+   "rationale": "第 2 轮替代解释审稿人：进入「两结局都非缺失」的共同样本本身是被选择的结果。若借力变量能预测它，共同样本上那两个系数就可能来自它选出的子总体，而不是结局本身",
+   "executable": true,
+   "outcome": "in_common"
+  },
+  {
+   "label": "〔非锁定〕去掉收入·同一批人",
+   "rationale": "第 2 轮替代解释审稿人：表 3 的「去掉家庭收入」把两件事混了——不再控制一个与省级相关的变量，与样本从 5082 扩到 5767。这一行把样本锁回同一批人，只去掉控制，用来分辨区间含零来自哪一边",
+   "executable": true,
+   "controls": [
+    "age",
+    "edu_years",
+    "urban",
+    "male",
+    "han"
+   ],
+   "sample_filter": "ln_income == ln_income"
+  },
+  {
+   "label": "〔非锁定〕加省级收入均值·捐赠",
+   "rationale": "第 2 轮替代解释审稿人：省级维度只挡了民族构成与城镇化，经济维度一行都没进过。人均 GDP 数据里没有，用本样本按省算的收入均值补上",
+   "executable": true,
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "urban",
+    "male",
+    "han",
+    "prov_han_share",
+    "prov_urban_share",
+    "prov_mean_ln_income"
+   ]
+  },
+  {
+   "label": "〔非锁定〕加省级收入均值·陌生人信任",
+   "rationale": "同上，另一个结局",
+   "executable": true,
+   "outcome": "trust_stranger",
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "urban",
+    "male",
+    "han",
+    "prov_han_share",
+    "prov_urban_share",
+    "prov_mean_ln_income"
+   ]
+  },
+  {
+   "label": "〔非锁定〕只看汉族",
+   "rationale": "第 2 轮替代解释审稿人：活动频率的高档在样本里可能高度依赖组织化宗教（基督教、伊斯兰）集中的省份，而那些省同时有特定的民族构成与慈善生态。限在汉族样本可削去这部分变异（子样本内 han 恒为 1、与常数项共线，故控制集去掉 han）",
+   "executable": true,
+   "sample_filter": "han == 1",
+   "controls": [
+    "age",
+    "ln_income",
+    "edu_years",
+    "urban",
+    "male"
+   ]
+  },
+  {
+   "label": "〔非锁定〕处理：高档参与（≥2）",
+   "rationale": "第 2 轮替代解释审稿人：把处理二值化为「参加过」，与 has_relig 的口径最接近。若高档参与单独承担效应，「每提高一档」这个刻度就没有依据",
+   "executable": true,
+   "treatment": "relig_hi"
+  }
+ ]
+}

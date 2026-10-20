@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "oss": {
+      "command": "<PROJECT_DIR>/.venv/bin/oss",
+      "args": ["mcp", "serve"],
+      "cwd": "<PROJECT_DIR>",
+      "env": {}
+    }
+  }
+}

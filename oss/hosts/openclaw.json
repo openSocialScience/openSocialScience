@@ -1,0 +1,18 @@
+{
+  "name": "openclaw",
+  "label": "OpenClaw",
+  "skills_dir": "~/.openclaw/workspace/skills",
+  "project_skills_dir": "",
+  "substitutes_arguments": false,
+  "honors_allowed_tools": true,
+  "invocation": "/name",
+  "invocation_note": "技能放在全局 workspace 目录里，没有项目级位置",
+  "executor_model_env": [],
+  "doctor_checks": ["openclaw-workspace"],
+  "managed_doc": "",
+  "index_file": "",
+  "detect_env": [],
+  "detect_markers": [],
+  "limits": "只有全局 workspace 技能目录，没有项目级；事实来自 nature-skills 的接入教程，本项目没实测过",
+  "source": "skill reference/nature-skills/docs/open-source-agent-frameworks.md §OpenClaw（~/.openclaw/workspace/skills）。没有可靠的项目目录标记，所以 detect_markers 为空——只能靠 --host openclaw 显式指定"
+}

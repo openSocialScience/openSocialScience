@@ -1,0 +1,22 @@
+{
+ "journal": "社会学研究",
+ "word_limit": 20000,
+ "word_limit_includes_references": true,
+ "max_tables_figures": null,
+ "double_blind": false,
+ "abstract_max_words": 200,
+ "abstract_no_citations": false,
+ "reference_style": "在引文后加括号注明作者、出版年份及页码，详细文献出处作为参考文献列于文后",
+ "supplementary_max_pages": null,
+ "figures_inline": true,
+ "figure_max_width": null,
+ "layout": null,
+ "other_requirements": [
+  "学术论文以10000-20000字为宜，稿件一律使用中文及中文标点符号（文末「参考文献」英文文献除外）",
+  "中文摘要不超过200字；英文摘要不超过150个单词；3-5个中文关键词",
+  "文献按作者姓氏的第一个字母依A-Z顺序分中、外文两部分排列，中文文献在前，外文文献在后",
+  "一级标题用编号一、二、三、，二级标题用（一）、（二）、（三），三级标题用1.、2.、3.，四级标题用（1）、（2）、（3）",
+  "一级标题居中，二级左对齐，三级标题左缩进两格"
+ ],
+ "word_min": 10000
+}

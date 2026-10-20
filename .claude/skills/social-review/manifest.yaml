@@ -1,0 +1,22 @@
+name: social-review
+version: 2.0.0
+description: >
+  单契约技能：SKILL.md 是路由器，contract.md 是四栏契约，reference/ 是互盲纪律与轮次细则。
+  互盲纪律每次都要守，所以跟契约一起进 always_load。
+
+always_load:
+  - contract.md
+  - reference/blind-discipline.md
+
+axes: {}
+
+references:
+  on_demand:
+    - condition: 为什么机械规则接不住这一类问题
+      path: reference/why.md
+    - condition: 退出码 0 / 1 / 2 / 4 的含义，空正文与网关超时两种失败
+      path: reference/exit-codes.md
+    - condition: 判词回来之后逐条怎么核、四个标签怎么处理、轮次怎么走
+      path: reference/after-verdict.md
+    - condition: 数据来自仿真货箱（`sim:`）时——三位审稿人的成见怎么换、桌审多看哪一条
+      path: reference/simulation.md

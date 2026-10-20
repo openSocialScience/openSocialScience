@@ -1,0 +1,14 @@
+name: social-identification
+version: 1.0.0
+description: >
+  单文件技能。SKILL.md 没到 150 行的拆分阈值，全部内容留在原处。
+  这份 manifest 只声明「没有分层」，好让 scripts/validate_skills.py 一视同仁地检查——
+  没有 manifest 和「不需要分层」是两回事，前者是漏了，后者是决定。
+
+always_load:
+  - SKILL.md
+
+axes: {}
+
+references:
+  on_demand: []

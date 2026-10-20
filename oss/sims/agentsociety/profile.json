@@ -1,0 +1,19 @@
+{
+  "name": "agentsociety",
+  "version_locked": "2.8.4",
+  "pip_package": "agentsociety2",
+  "condition_knob": {
+    "module_type": "social_media",
+    "kwarg": "feed_source",
+    "values": ["global", "following"],
+    "note": "feed_source：global=全站帖子池，following=只看关注的人+自己（contrib/env/social_media/social_media_space.py，上游缺省 global）。要换成别的 kwarg 得手改跑单模板的 KNOB_MODULE/KNOB_KEY 常量，不能只填空位"
+  },
+  "defaults": {"env_module": "social_media", "concurrency": 8, "rounds": 10, "tick": 900, "n_agents": 20, "temperature": "provider_default"},
+  "sample_base": "~/Documents/agentsociety",
+  "sample_data": "packages/agentsociety2/profiles.json",
+  "notes": ["并发缺省归 8：上游 AGENTSOCIETY_LLM_RAY_CONCURRENCY 默认 16 且带 AIMD 自适应（压垮了会自己降），但 AIMD 只保证垮了能降、不保证垮之前不疼——本仓中转站史（OASIS 用旧默认 32 两次压垮、8 实测稳，2026-08-31）主张保守起步；跑单模板 CONCURRENCY 槽缺省同为 8，两处要一起改",
+            "成本预警（**未实测**）：ReAct 智能体每 agent 每 step 约 3-10 次模型调用，同规模成本约为 OASIS 的数倍（设计稿已决预警）——真跑前必须小规模试水（如 5 人×2 轮）+中转站预算确认",
+            "样本档案不随 pip 包分发：wheel 只装 agentsociety2/ 包目录，profiles.json 在克隆仓库根（packages/agentsociety2/profiles.json，JSON 数组 100 人：id/age/gender/education/occupation/consumption/home/work）——doctor 按本档案自持的 sample_base（~/Documents/agentsociety）解析样本路径，不再借道 OASIS 克隆（停车场 5 已解）；克隆位置见装机说明 docs/user/sim-agentsociety.md §二",
+            "无全局 seed、无 temperature 旋钮、AIMD 并发致执行序不定：设计上不可复现，靠重复次数（配料单 temperature=provider_default，设计稿已决）",
+            "tick 建议 900 秒/步（上游 experiments/main.py 的 15 分钟档）；轮=step，问卷不推进 step，秒换算记进配料单 interview_plan"]
+}

@@ -1,0 +1,19 @@
+{
+ "kind": "coef",
+ "lang": "en",
+ "caption": "Coefficient estimates from the main specification with 95% confidence intervals (n = 11840). The treatment coefficient is highlighted.",
+ "png": "04_主回归系数.png",
+ "pdf": "04_主回归系数.pdf",
+ "dpi": 300,
+ "shown": [
+  "Social origin × Expansion intensity",
+  "Female × Expansion intensity",
+  "Rural hukou × Expansion intensity",
+  "Social origin",
+  "Expansion intensity",
+  "Years of schooling",
+  "Female",
+  "Age",
+  "Rural hukou"
+ ]
+}

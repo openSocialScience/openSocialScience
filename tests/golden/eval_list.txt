@@ -1,0 +1,40 @@
+EXIT 0
+---
+  [must  ] profile-first          social-research        环节 1：先画像，再写计划
+  [should] lit-camps              social-research        环节 2：检索式按阵营写，至少两派
+  [must  ] lit-fetch              social-research        环节 2 之二：精读并写读书卡
+  [must  ] ideas-jury             social-idea            步骤 6：候选 idea 交给跨模型陪审团；每个 idea 记透镜
+  [must  ] ideas-candidates-monotone social-idea            不变量二：④ 不得凭空造题，被砍的候选不得删出文件
+  [must  ] ideas-two-lists        social-idea            不变量三：数据不可及的候选分流到清单乙，不降权、写清缺什么
+  [must  ] power-before-run       social-research        环节 4：功效在分析之前算
+  [must  ] power-fail-stop        social-research        环节 4：功效 FAIL 即停，不写论文
+  [must  ] power-effect-source    social-research        环节 4：功效的效应量要有出处，不许用缺省值冒充文献值
+  [must  ] state-not-hand-written social-research        铁律三：状态文件归工具箱，模型只写 ideas/plan/paper
+  [must  ] self-review-disclosed  social-review          自审（审稿人与执行者同家族）要写进论文局限
+  [must  ] byo-idea-declared      social-idea            步骤 0：只有输入里真带了 idea: 才走自带想法模式
+  [must  ] research-type-declared social-research        环节 5：计划写明研究类型（因果 / 描述 / 测量 / 仿真）
+  [must  ] open-items-accounted   social-review          收尾：还剩的审稿意见要在论文里逐条交代
+  [must  ] staggered-did-cs       social-research        环节 5：分批实施主规格用 did_cs，不用 TWFE
+  [should] robustness-locked      social-research        环节 5：稳健性事前锁定、可执行
+  [should] proxy-gap              social-research        环节 4：代理变量填代理差距三栏
+  [must  ] route-after-run        social-research        环节 6 之二：跑完分析先开方；改完重跑再复查
+  [must  ] route-disposed         social-research        环节 6 之二：每条处方都有处置
+  [must  ] identification-audit   social-identification  因果研究必须过识别审计
+  [must  ] audit-disposed         social-identification  审计每条意见都有处置
+  [must  ] causal-estimand        social-research        环节 5：因果计划写了估计量三步、控制变量标了角色
+  [should] causal-diagnostics-cited social-research        环节 7：因果论文引了因果诊断的数（有效 F / AR、预检功效 / breakdown、稳健值 / Oster δ / E 值）
+  [must  ] survey-design-declared social-research        环节 5：画像有调查信号的，计划声明了抽样设计或写了不按调查处理的理由
+  [must  ] survey-descriptive-weighted social-research        环节 5：描述性估计加权了（调查层设计稿 4.1）
+  [must  ] descriptive-estimand   social-research        环节 5：描述类计划写了描述量与目标总体（describe 还要写 description.kind）
+  [should] descriptive-magnitude  social-paper           环节 7：描述类论文引了分组描述表，报大小与区间
+  [must  ] tables                 social-paper           三张表：描述统计、主结果、稳健性
+  [must  ] figures-captioned      social-paper           至少两张图，图注在下一行
+  [must  ] no-process-language    social-paper           铁律二：研究过程不进正文
+  [must  ] causal-wording         social-paper           研究类型不是因果的论文不下因果结论
+  [should] abstract-numbers       social-paper           摘要要有具体数字
+  [must  ] novelty-gate           social-paper           没读全文不许说首次
+  [should] desk-before-referees   social-review          0：先桌审
+  [must  ] three-referees         social-review          1：三位互盲审稿人，含替代解释
+  [should] editor-synthesis       social-review          2：编辑综合
+  [must  ] fail-rereviewed        social-review          FAIL 必须复审一次
+  [must  ] export-gates           social-research        导出前 must 级处方清零

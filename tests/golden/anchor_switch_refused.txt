@@ -1,0 +1,3 @@
+EXIT 2
+---
+✗ 换题必须有用户授权：--authorized-by user。模型自己不能授权自己

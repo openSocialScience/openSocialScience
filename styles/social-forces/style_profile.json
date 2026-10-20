@@ -1,0 +1,251 @@
+{
+ "pack": "social-forces",
+ "n_exemplars": 6,
+ "n_usable": 6,
+ "ranges": {
+  "words_body": {
+   "min": 7039,
+   "median": 9290.5,
+   "max": 10421
+  },
+  "words_abstract": {
+   "min": 84,
+   "median": 164.0,
+   "max": 362
+  },
+  "sentence_mean": {
+   "min": 24.4,
+   "median": 26.4,
+   "max": 34.5
+  },
+  "n_tables": {
+   "min": 1,
+   "median": 2.5,
+   "max": 5
+  },
+  "n_figures": {
+   "min": 4,
+   "median": 5,
+   "max": 6
+  },
+  "tables_plus_figures": {
+   "min": 4,
+   "median": 8,
+   "max": 9
+  },
+  "cites_per_1000": {
+   "min": 5.6,
+   "median": 7.2,
+   "max": 11.6
+  },
+  "first_person_per_1000": {
+   "min": 6.1,
+   "median": 13.2,
+   "max": 17.2
+  }
+ },
+ "section_order": [
+  "abstract",
+  "introduction",
+  "background",
+  "data_methods",
+  "results",
+  "discussion",
+  "limitations"
+ ],
+ "citation_form": "author-year",
+ "limitations_as_heading_share": 0.33,
+ "papers": [
+  {
+   "file": "2023_Racialization_and_Reproduction_Asian_Immigrants_an.pdf",
+   "title": "UCLA",
+   "words_total": 11353,
+   "words_body": 9570,
+   "words_abstract": 362,
+   "sections_found": [
+    "abstract",
+    "introduction",
+    "data_methods",
+    "results",
+    "discussion",
+    "limitations",
+    "references"
+   ],
+   "section_words": {
+    "introduction": 3658,
+    "data_methods": 1001,
+    "results": 1433,
+    "discussion": 1734,
+    "limitations": 1105,
+    "abstract": 362
+   },
+   "sentence_mean": 25.7,
+   "n_tables": 5,
+   "n_figures": 4,
+   "cites_per_1000": 11.6,
+   "first_person_per_1000": 14.9,
+   "citation_form": "author-year",
+   "has_limitations_heading": true,
+   "intro_opening": "The COVID-19 pandemic prompted increased xenophobia and racialized violence toward Asian- Americans and Asian immigrants in the United States. This surge in discrimination and hate crimes is unsurprising when tracing long-standing stereotypes of Asians as threats to public health. Historians have documented the development of legal, social, and scientific narratives portraying Asians, both foreign- and American-born, as unassimilable aliens and threats to the health of white populations ( Ngai 2014 ; Stern 2016 ). Public health policies and practices reified the racialization of Asians through “yellow peril” narratives, cleanliness crusades, and birth rate monitoring ( Molina 2006 ; Ngai 2014 ; Shah 2001 ; T akaki 1998). Despite this historical literature, many discussions about systemic racism and discrimination in health",
+   "discussion_opening": "Our study presents novel quantitative evidence of disproportionate eugenic sterilization of Asian immigrants in twentieth-century California and follows Asian-American studies scholars in centering the experiences of Asian immigrants in the history of the United States. We connect the racist and gendered implementation of Asian immigration restriction to the racism and sexism inherent in eugenic theories and practices. Though Asian immigrant women constituted a small proportion of California’s population during the height of its sterilization program, we confirmed our hypothesis of higher rates of sterilization of Asian-born women compared with US- and other foreign-born women from 1920 to 1945. Asian-born men only showed higher sterilization rates prior to 1933, in partial agreement with our initial hypothesis, for reasons requiring additional research"
+  },
+  {
+   "file": "2023_The_Meaning_of_Merit_Talent_versus_Hard_Work_Legit.pdf",
+   "title": "Friedman, Sam , Ellersgaard, Christoph, Reeves, Aaron & Larsen, Anton Grau",
+   "words_total": 11754,
+   "words_body": 10421,
+   "words_abstract": 270,
+   "sections_found": [
+    "abstract",
+    "introduction",
+    "results",
+    "discussion",
+    "data_methods",
+    "references"
+   ],
+   "section_words": {
+    "introduction": 3471,
+    "results": 4614,
+    "discussion": 1848,
+    "data_methods": 17,
+    "abstract": 270
+   },
+   "sentence_mean": 26.2,
+   "n_tables": 0,
+   "n_figures": 0,
+   "cites_per_1000": 5.8,
+   "first_person_per_1000": 7.2,
+   "citation_form": "author-year",
+   "has_limitations_heading": false,
+   "intro_opening": "In recent years, a new and highly critical literature on meritocracy has f lourished across the social sciences. This work has attacked the meritocratic ideal from multiple angles—empirical ( Woodson 2015), philosophical ( Sandel 2020; Frank 2016; Markovitz 2010), and normative ( Littler 2018). Yet despite the preponderance of scholarly critiques meritocracy remains incredibly popular—both as a political ideology but also as a lens through which lay people make sense of, and justify , their own (and other people’s) life outcomes ( Mijs 2019 ; Mijs and Savage 2020 ). Nowhere is this more clear than among elites. Scholars have long described how powerful societal groups legitimate their advantages through self-justification.A s Bourdieu (1996 , 265) argues: “No power can",
+   "discussion_opening": "Contemporary elites often use merit to explain, justify , and make sense of their advantaged positions. In this paper, we deepen this literature to show that the idea of merit deployed in such self-justifications can vary in important ways cross-nationally . Specifically , we find that while elites in both the UK and Denmark are united by a common concern to frame their success as externally recognized rather than intentionally sought, the package of attributes they foreground as signals of merit vary significantly . In the UK, elites tend to portray themselves as “talent meritocrats” who foreground their capacity for ideational creativity , possession of “good judgment”, and “natural” aptitude. In contrast, in Denmark, elites are more likely to be"
+  },
+  {
+   "file": "2024_The_Class_Ceiling_in_the_United_States_Class_Origi.pdf",
+   "title": "Laurison, Daniel & Friedman, Sam (2024) The class ceiling in the United States:",
+   "words_total": 11558,
+   "words_body": 7039,
+   "words_abstract": 84,
+   "sections_found": [
+    "abstract",
+    "introduction",
+    "data_methods",
+    "discussion",
+    "references"
+   ],
+   "section_words": {
+    "introduction": 2824,
+    "data_methods": 2824,
+    "discussion": 1263,
+    "abstract": 84
+   },
+   "sentence_mean": 34.5,
+   "n_tables": 2,
+   "n_figures": 6,
+   "cites_per_1000": 7.8,
+   "first_person_per_1000": 17.2,
+   "citation_form": "author-year",
+   "has_limitations_heading": false,
+   "intro_opening": "A long history of sociological and related scholarship has established that class origins predict educational opportunities and outcomes from elementary school through college, and that parents’ class position also—largely but not entirely through education—affects both the occupations people enter as adults (see Hout 2015 for an overview) and their earnings (Thompson 2019; Torche 2011). Social scientists have also demonstrated pervasive racial and gender pay gaps, even among people with similar qualifications in similar positions. Here the metaphor of the glass ceiling has been usefully deployed to highlight the durable yet often invisible barriers that women and people of color face in achieving the same rewards as white men in similar positions (Collins 1997; Kanter 1993; Lacy 2007; Wingfield 2009; Woodson",
+   "discussion_opening": "Even when those from working-class backgrounds successfully enter America’s higher professional and managerial occupations, they face a powerful “class ceiling” in terms of earnings. The class-origin pay gap persists even after controlling for age, gender, race and ethnicity, education, occupation, and various aspects of work context. This inequality is also comparatively large. It is substantially higher than the class-origin pay gap (in top occupations) in the UK and France— societies normally considered the exemplars of class inequality (Falcon and Bataille 2018; Laurison and Friedman 2016).12 This pay gap could reflect two distinct inequality-generating mechanisms. First, it may indicate that those from working-class backgrounds are earning less for doing the same work (that is, for doing jobs at the same level,"
+  },
+  {
+   "file": "soad063.pdf",
+   "title": "Received: April 19, 2022. Revised: March 29, 2023. Accepted: April 6, 2023",
+   "words_total": 11452,
+   "words_body": 8818,
+   "words_abstract": 129,
+   "sections_found": [
+    "abstract",
+    "introduction",
+    "background",
+    "data_methods",
+    "results",
+    "discussion",
+    "limitations",
+    "references"
+   ],
+   "section_words": {
+    "introduction": 924,
+    "background": 2354,
+    "data_methods": 1902,
+    "results": 1360,
+    "discussion": 694,
+    "limitations": 1288,
+    "abstract": 129
+   },
+   "sentence_mean": 26.5,
+   "n_tables": 1,
+   "n_figures": 6,
+   "cites_per_1000": 6.6,
+   "first_person_per_1000": 6.1,
+   "citation_form": "author-year",
+   "has_limitations_heading": true,
+   "intro_opening": "Countries with an apprenticeship-based vocational education and training (VET) system often facilitate smooth transitions to the labor market ( Barbieri, Cutuli, and Passaretta 2018 ; Kogan 2019 ). Having obtained an apprenticeship is then key to a successful school-to-work transition ( Masdonati, Lamamra, and Jordan 2010 ), which, in turn, leads to relatively stable occupational careers and avoids unemployment ( Manzoni, Härkönen, and Mayer 2014 ; Müller, Steinmann, and Ell 1998 ; Solga 2008 ; Ainsworth and Roscigno 2005 ). At the same time, however, We thank Lukas Fervers, Marita Jacob, and the participants of the 5th International NEPS Conference 2020 for valuable comments on an earlier version of this manuscript. We also thank the editor and three anonymous reviewers",
+   "discussion_opening": "Summary This paper has aimed to shed light on the relevance of career compromises for dropping out of a first VET position, focusing on two types of compromises that some apprentices must make when entering VET: compromises related to social status and compromises related to gender type. As a major contribution to the literature, we not only assessed the extent but also the direction of these compromises. Using representative and comprehensive longitudinal data on apprentices’ first training position and their career aspirations before entering VET , substantial associations between compromises and dropout behavior were found. In line with previous theorizing and research (i.e., Creed and Blume 2012 ; Hardie 2014 ), both types of compromises were related to Downloaded from"
+  },
+  {
+   "file": "soad064.pdf",
+   "title": "Received: June 24, 2021. Revised: March 20, 2023. Accepted: April 22, 2023",
+   "words_total": 10943,
+   "words_body": 9892,
+   "words_abstract": 170,
+   "sections_found": [
+    "abstract",
+    "introduction",
+    "data_methods",
+    "results",
+    "discussion",
+    "references"
+   ],
+   "section_words": {
+    "introduction": 2996,
+    "data_methods": 1871,
+    "results": 2603,
+    "discussion": 2150,
+    "abstract": 170
+   },
+   "sentence_mean": 24.4,
+   "n_tables": 3,
+   "n_figures": 5,
+   "cites_per_1000": 5.6,
+   "first_person_per_1000": 16.3,
+   "citation_form": "author-year",
+   "has_limitations_heading": false,
+   "intro_opening": "Social mobility and social inequality are two of the most central concepts in sociology ( Mare 2001). The former relates to the openness of societies. How mobile are individuals in the social hierarchy? How easily do they interact with others across the hierarchy? The latter relates to the distribution of valued resources between individuals and households. How unequal and distant are positions in the social hierarchy? Although social mobility and social inequality are distinct concepts and often examined separately , they “go together intuitively” ( Hout 2004: 969) and interas well as intra-generational social mobility can be directly related to dynamics in inequality (Mare 2001 )a n dv i c ev e r s a(Hertel and Groh-Samberg 2019 ). The",
+   "discussion_opening": "Questions about how partnerships form and the societal consequences of partnership formation are central to sociology and neighboring disciplines. From the perspective of inequality research, Downloaded from academic.oup.com/sf/article/102/2/454/7165260 by on 25 August 2026 Assortative Mating and Wealth Inequalities | 469 Figure 5. Absolute and relative within-household gender gap in wealth across women’s and men’s wealth distributions with adjusted women’s wealth distribution. Note: Data from SIPP 2008/2014. Lines indicate 95 percent confidence intervals. For relative share, only couples are included in which no partner has negative net wealth. Therefore, lowest quintile and opposite rank counterfactual are excluded. assortative mating can be seen as one type of intragenerational social mobility with a powerful impact on social inequality . Although assortative mating may"
+  },
+  {
+   "file": "soad144.pdf",
+   "title": "Received: June 21, 2022. Revised: September 9, 2023. Accepted: October 19, 2023",
+   "words_total": 11133,
+   "words_body": 9011,
+   "words_abstract": 158,
+   "sections_found": [
+    "abstract",
+    "introduction",
+    "background",
+    "data_methods",
+    "results",
+    "references"
+   ],
+   "section_words": {
+    "introduction": 868,
+    "background": 2023,
+    "data_methods": 1815,
+    "results": 3996,
+    "abstract": 158
+   },
+   "sentence_mean": 27.4,
+   "n_tables": 0,
+   "n_figures": 4,
+   "cites_per_1000": 8.2,
+   "first_person_per_1000": 11.4,
+   "citation_form": "author-year",
+   "has_limitations_heading": false,
+   "intro_opening": "Socioeconomic status displays a high degree of intergenerational persistence, and education is a well-documented key mediator of the relationship between family background and socioeconomic outcomes in developed countries ( Breen and Müller 2020 ; Erola et al. 2016 ). Educational This work was supported by the ESRC [grant number ES/J019135/1]. The authors contributed equally . We thank Yannick Savina for his precious help with the figures of this article. Downloaded from academic.oup.com/sf/article/102/4/1288/7423022 by on 25 August 2026 Educational Attainment and Cognitive Skills | 1289 equalization is therefore widely regarded as a key lever to reduce intergenerational inequalities. While earlier research pointed to stable educational inequalities in Europe and North America ( Shavit and Blossfeld 1993 ), more recent studies report",
+   "discussion_opening": ""
+  }
+ ],
+ "notes": []
+}

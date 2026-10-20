@@ -1,0 +1,11 @@
+EXIT 0
+---
+✓ citation_check.json  →  <RUN>/citation_check.json
+  支持 1 处
+  存疑 1 处
+  核不了 1 处
+  · [存疑] W002：也有人认为，最低工资上调并不减少就业 {{cite:W002}}
+  · [核不了] W003：另有综述给出相反的证据 {{cite:W003}}
+
+  **机器只能抓明显的张冠李戴。**细微的过度引申要交给别家模型判：
+    oss review <RUN>/citation_check.json --kind citations --level deep --run <RUN>

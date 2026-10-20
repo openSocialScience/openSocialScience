@@ -1,0 +1,33 @@
+name: tests
+
+"on":
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      # 不装 causal（statspai，约 300 MB，测试用 importorskip 跳过）、
+      # 不装 pandoc（它的测试用 shutil.which 跳过）。
+      - name: Install
+        run: pip install -e ".[dev,stats-formats,excel,figures,reading]"
+
+      # 逐字冻结的输出测试缺 statspai / matplotlib 时会自己跳过对应几条
+      # （tests/test_stage3_prose_frozen.py 的 _REQUIRES_OPTIONAL），这里不用再按名字排除。
+      - name: Test
+        run: pytest -q
+
+      - name: Validate skills
+        run: python scripts/validate_skills.py

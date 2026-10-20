@@ -1,0 +1,15 @@
+{
+  "name": "oasis",
+  "version_locked": "0.2.5",
+  "pip_package": "camel-oasis",
+  "recsys": {
+    "usable": ["reddit", "random", "twhin-bert"],
+    "broken": {"twitter": "0.2.5 的 rec_sys_personalized_with_trace 取 trace['post_id'] 必崩（V0 发现 1）；无嵌入模型时打分是随机数"}
+  },
+  "defaults": {"platform": "twitter", "recsys": "reddit", "semaphore": 8, "temperature": "provider_default"},
+  "sample_base": "~/Documents/oasis",
+  "sample_data": "data/twitter_dataset/anonymous_topic_200_1h/False_Business_0.csv",
+  "notes": ["semaphore 归 8：旧默认 32 在 2026-08-31 真跑的长上下文末波两次压垮中转站（F3），8 实测稳——跑单模板缺省同为 8，两处要一起改",
+            "档案 CSV 简介含换行：取前 N 人必须按 CSV 记录数，不能按物理行（V0 发现 3）",
+            "库内时间为加速 60 倍模拟时间；轮次靠 runner 逐轮记 MAX(rowid)（V0 发现 6）"]
+}

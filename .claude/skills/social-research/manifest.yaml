@@ -1,0 +1,57 @@
+name: social-research
+version: 2.0.0
+description: >
+  静态 / 动态分层的声明式清单。SKILL.md 是路由器：读 run_state.json 的 stage，
+  在 axes.stage.values 里查到本环节的四栏契约，只加载那一份；
+  always_load 的五份规则跨环节，每次都读；.notes.md 是散文与教训，卡住时才读。
+  借自 nature-academic-search 的 always_load / axes / references.on_demand 三段式。
+
+always_load:
+  - rules/iron-laws.md
+  - rules/input-and-rundir.md
+  - rules/stop-conditions.md
+  - rules/ask-user.md
+  - rules/explore.md
+
+axes:
+  stage:
+    detect: |
+      读 <运行目录>/run_state.json 的 stage 字段。
+      文件不存在 → 1-profile（新开）。
+      stage_status 是 done → 已经跑完，不要重跑，只做收尾问答。
+      stage 是空的（环节 1–5 不写状态）→ 看目录里已有哪些产出（profile.json → literature.json → screening.json → reading_cards.json → ideas.json → power.json → plan.json → results.json），从最后一份的下一环节续，别重跑已有的。
+      这一步只看 阶段 / 锚点 / 轮次 三行；决定 那一行只在环节 8 之后才作数。
+      **不凭记忆判断现在第几步**：压缩、中断、换模型接手，都从这个文件续。
+    values:
+      1-profile:          stages/1-profile.md
+      2-literature:       stages/2-literature.md
+      3-ideas:            stages/3-ideas.md
+      4-feasibility:      stages/4-feasibility.md
+      5-plan:             stages/5-plan.md
+      6-run:              stages/6-run.md
+      7-paper:            stages/7-paper.md
+      7.5-identification: stages/7.5-identification.md
+      8-review:           stages/8-review.md
+      9-wrapup:           stages/9-wrapup.md
+    multi: false
+
+references:
+  on_demand:
+    - condition: 合并丢行、宽表面板、三张诊断图各说明什么
+      path: stages/1-profile.notes.md
+    - condition: 检索式阵营、覆盖缺口、全文来源顺序、新颖性主张的红线
+      path: stages/2-literature.notes.md
+    - condition: idea 回来之后要确认的三件事、三个数据源的脾气
+      path: stages/3-ideas.notes.md
+    - condition: 代理差距三栏怎么填、灰区含义、功效 FAIL 的三条出路
+      path: stages/4-feasibility.notes.md
+    - condition: 交互与分箱、did_cs、工具变量、断点法、稳健性怎么锁
+      path: stages/5-plan.notes.md
+    - condition: VIF 与年龄-时期-队列、左删失、样本构建、诊断→处置
+      path: stages/6-run.notes.md
+    - condition: 论文写完回来要确认的三件事
+      path: stages/7-paper.notes.md
+    - condition: 因果审计为什么必须跟上、平行趋势通过不等于外生
+      path: stages/7.5-identification.notes.md
+    - condition: 三个意见标签怎么处理、设计级为什么不要求清零、后端不可用的两种表现
+      path: stages/8-review.notes.md

@@ -1,0 +1,17 @@
+{
+ "kind": "robustness",
+ "lang": "en",
+ "caption": "Estimated coefficient on Social origin × Expansion intensity across the main specification and the pre-registered robustness specifications, with 95% confidence intervals.",
+ "png": "05_稳健性森林图.png",
+ "pdf": "05_稳健性森林图.pdf",
+ "dpi": 300,
+ "shown": [
+  "Main specification",
+  "Unweighted",
+  "Rounds from 2006 onwards",
+  "Province-specific linear trends",
+  "Excluding municipalities",
+  "EGP class scheme for the outcome",
+  "Excluding the pandemic years"
+ ]
+}

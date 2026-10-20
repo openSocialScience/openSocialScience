@@ -1,0 +1,15 @@
+EXIT 0
+---
+  qog    可直接下载      country-year                         钥匙列 unit=cname、time=year、iso3=ccodealp
+         Quality of Government Basic Dataset, time-series (Jan 2026)
+  vdem   可直接下载      country-year                         钥匙列 unit=country_name、time=year、iso3=country_text_id
+         V-Dem Country-Year Core (v15)
+  gss    可直接下载      individual-repeated-cross-section    钥匙列 unit=id、time=year
+         General Social Survey, cumulative file (1972–)
+  cgss   需申请，还没放    individual-repeated-cross-section    钥匙列 unit=id、time=year
+         中国综合社会调查 CGSS
+  cfps   需申请，还没放    individual-panel                     钥匙列 unit=pid、time=wave
+         中国家庭追踪调查 CFPS
+  wvs    需申请，还没放    individual-repeated-cross-section    钥匙列 unit=D_INTERVIEW、time=A_YEAR、iso3=COUNTRY_ALPHA
+         World Values Survey (time-series 1981–2022)
+  ↳ 拿：oss data get <名>；详情：oss data info <名>；要申请的放进 data/<名>/ 再 get

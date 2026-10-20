@@ -1,0 +1,26 @@
+name: social-idea
+version: 2.0.0
+description: >
+  单契约技能：SKILL.md 是路由器，contract.md 是四栏契约，reference/ 是方法论细则。
+  方法论很厚（十个透镜、学科档案、强制门），全塞进主文件会让路由器读不动，所以按需加载。
+
+always_load:
+  - contract.md
+  - reference/iron-laws.md
+
+axes: {}
+
+references:
+  on_demand:
+    - condition: 输入带 idea:——不出题，把用户那段原文整理成 ideas.json 唯一的一条
+      path: reference/tidy-mode.md
+    - condition: 社科与 ML 的七条结构性差异；遇到质性方向怎么办
+      path: reference/why-social-science.md
+    - condition: 这个学科额外开哪几个透镜、识别门多硬、发表门槛是什么
+      path: reference/discipline-profiles.md
+    - condition: 建空白地图、六个透镜、合并去重、可行性筛选、写 ideas.json
+      path: reference/lenses.md
+    - condition: ⑤ 经验预检与重排：构念绑定、最小可测效应、分布诊断，据此重排候选
+      path: reference/prescreen.md
+    - condition: ⑥ 定向查重与理论定位、⑦ 跨模型评议（降权为一个信号）、三种退出情况
+      path: reference/jury.md

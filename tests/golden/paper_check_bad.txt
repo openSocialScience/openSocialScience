@@ -1,0 +1,8 @@
+EXIT 1
+---
+  ⚠ 全文没有任何占位符。**一篇实证论文不引用自己的估计结果是可疑的**
+  ⚠ 摘要没有任何具体数字——至少引主效应的占位符（{{result:main.coef}}、{{result:main.n}}）；只说「显著」「有影响」的摘要会被桌拒
+  ⚠ 全文没有主结果表 {{table:main}}——**量化论文没有回归表是硬伤**，导出 Word 时会拒绝。表注在占位符上一行：*Table 2. Main estimates.*
+✗ 稿件过不了校验：
+  · 第 15 行有裸小数 0.473——统计结果必须写成占位符 {{result:xxx.yyy}}，不能手打
+  · 处方「staggered_twfe」还没处置（estimator = did，而处理分批实施）——oss route --apply staggered_twfe 然后 oss run

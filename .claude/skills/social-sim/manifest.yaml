@@ -1,0 +1,23 @@
+name: social-sim
+version: 1.0.0
+description: >
+  单文件流程技能：SKILL.md 是路由器，reference/run-order.md 是完整的七步操作手册
+  （整理稿 → 体检 → 建箱填单 → 生成跑单 → 逐场执行 → 登记装箱验货入库 → 收尾报告）。
+  没有阶段轴——一次调用从头跑到尾，不像 social-research 那样跨会话续跑，
+  所以 axes 为空。货箱标准（sim.meta.json 十二项、拒收/降级规则）与各模拟器
+  安装单（OASIS / AgentSociety：体检三条查什么、样本档案怎么拷、已知坑）都很厚，
+  按需读，不塞进 always_load。
+
+always_load:
+  - reference/run-order.md
+
+axes: {}
+
+references:
+  on_demand:
+    - condition: sim.meta.json 十二项怎么填、拒收/降级的具体规则、runs.csv 与 raw/ 的要求
+      path: ../../../docs/user/sim-box.md
+    - condition: OASIS 怎么装、oss sim doctor 三条各查什么、profiles_full.csv 怎么拷、已知坑
+      path: ../../../docs/user/sim-oasis.md
+    - condition: AgentSociety 怎么装、doctor 三条各查什么、profiles.json 怎么拷、坑表（v1/v2 分叉、无 seed、403 quota 马甲）、费用未实测铁律
+      path: ../../../docs/user/sim-agentsociety.md

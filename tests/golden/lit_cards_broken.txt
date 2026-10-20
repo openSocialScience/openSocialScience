@@ -1,0 +1,5 @@
+EXIT 1
+---
+✗ reading_cards.json 格式不对：1 validation error for ReadingCards
+  Invalid JSON: key must be a string at line 1 column 3 [type=json_invalid, input_value='{ 不是 JSON', input_type=str]
+    For further information visit https://errors.pydantic.dev/<PYDANTIC>/v/json_invalid

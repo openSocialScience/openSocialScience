@@ -1,0 +1,29 @@
+{
+ "journal": "管理世界",
+ "word_limit": null,
+ "word_limit_includes_references": true,
+ "max_tables_figures": null,
+ "double_blind": true,
+ "abstract_max_words": 300,
+ "abstract_no_citations": false,
+ "reference_style": "所有注释和参考文献均列在文章末尾；注释的序号为连续编号，参考文献按作者的汉语拼音或英文名字顺序排列",
+ "supplementary_max_pages": null,
+ "figures_inline": true,
+ "figure_max_width": null,
+ "layout": {
+  "margin_top_cm": null, "margin_bottom_cm": null,
+  "margin_left_cm": null, "margin_right_cm": null,
+  "two_sided": false,
+  "header_odd": "", "header_even": "", "footer_odd": "", "footer_even": "",
+  "page_number": "", "page_number_format": "arabic", "page_number_start": null,
+  "columns": 1, "column_gap_cm": null, "line_numbers": false,
+  "footnote_restart_each_page": false
+ },
+ "other_requirements": [
+  "文章首页要提供300字以内的中文摘要，并需要3～5个关键词",
+  "首页之外的其他地方，请勿出现有可能泄露作者身份的任何信息",
+  "所有注释和参考文献均请列在文章末尾；注释的序号为连续编号",
+  "参考文献按作者的汉语拼音或英文名字顺序排列；应只包括正文（含脚注）中所引用的文献",
+  "文章应尽量简明扼要，文章篇幅应与其贡献相匹配（须知未给字数上限，故本包不设）"
+ ]
+}

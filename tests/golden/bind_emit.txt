@@ -1,0 +1,5 @@
+EXIT 0
+---
+✓ binding.json  →  <RUN>/binding.json
+  ✓ 处理时点 (treatment) → treat_time  [bound] 按名称与标签匹配
+  ✓ 结局 (outcome) → y  [bound] 按名称与标签匹配

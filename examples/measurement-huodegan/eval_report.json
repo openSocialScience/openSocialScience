@@ -1,0 +1,314 @@
+{
+ "items": [
+  {
+   "id": "profile-first",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 1：先画像，再写计划",
+   "status": "pass",
+   "detail": "oss profile 在 seq 2"
+  },
+  {
+   "id": "lit-camps",
+   "skill": "social-research",
+   "priority": "should",
+   "what": "环节 2：检索式按阵营写，至少两派",
+   "status": "pass",
+   "detail": "6 个阵营：主客观错位、公共服务与主观福祉、公共服务满意度、测量等价与量表、获得感、获得感英文"
+  },
+  {
+   "id": "lit-fetch",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 2 之二：精读并写读书卡",
+   "status": "pass",
+   "detail": "精读 19 篇，全文 11 篇；读书卡 6 张"
+  },
+  {
+   "id": "ideas-jury",
+   "skill": "social-idea",
+   "priority": "must",
+   "what": "步骤 6：候选 idea 交给跨模型陪审团；每个 idea 记透镜",
+   "status": "pass",
+   "detail": "15 个候选，都有透镜来源，陪审团审过"
+  },
+  {
+   "id": "ideas-candidates-monotone",
+   "skill": "social-idea",
+   "priority": "must",
+   "what": "不变量二：④ 不得凭空造题，被砍的候选不得删出文件",
+   "status": "pass",
+   "detail": "15 条候选自发散段起没增没删"
+  },
+  {
+   "id": "ideas-two-lists",
+   "skill": "social-idea",
+   "priority": "must",
+   "what": "不变量三：数据不可及的候选分流到清单乙，不降权、写清缺什么",
+   "status": "pass",
+   "detail": "清单乙 1 条都在文件里，且都写清了缺什么数据"
+  },
+  {
+   "id": "power-before-run",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 4：功效在分析之前算",
+   "status": "pass",
+   "detail": "功效 seq 17 在分析 seq 58 之前"
+  },
+  {
+   "id": "power-fail-stop",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 4：功效 FAIL 即停，不写论文",
+   "status": "n/a",
+   "detail": "测量类判「证据做不做得出来」：不算功效，做不出来的在环节 4 当场停"
+  },
+  {
+   "id": "power-effect-source",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 4：功效的效应量要有出处，不许用缺省值冒充文献值",
+   "status": "n/a",
+   "detail": "测量类判「证据做不做得出来」：不算效应量，没有效应量出处可核"
+  },
+  {
+   "id": "state-not-hand-written",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "铁律三：状态文件归工具箱，模型只写 ideas/plan/paper",
+   "status": "pass",
+   "detail": "状态文件的锚点形状正常"
+  },
+  {
+   "id": "self-review-disclosed",
+   "skill": "social-review",
+   "priority": "must",
+   "what": "自审（审稿人与执行者同家族）要写进论文局限",
+   "status": "pass",
+   "detail": "审稿是跨模型的"
+  },
+  {
+   "id": "byo-idea-declared",
+   "skill": "social-idea",
+   "priority": "must",
+   "what": "步骤 0：只有输入里真带了 idea: 才走自带想法模式",
+   "status": "n/a",
+   "detail": "模型自己出的题，这条不适用"
+  },
+  {
+   "id": "research-type-declared",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 5：计划写明研究类型（因果 / 描述 / 测量 / 仿真）",
+   "status": "pass",
+   "detail": "研究类型：measurement"
+  },
+  {
+   "id": "open-items-accounted",
+   "skill": "social-review",
+   "priority": "must",
+   "what": "收尾：还剩的审稿意见要在论文里逐条交代",
+   "status": "pass",
+   "detail": "未决 23 条，逐条写了 7 条（条数少于未决数，可能有合并——合并没问题，漏掉才是问题）"
+  },
+  {
+   "id": "staggered-did-cs",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 5：分批实施主规格用 did_cs，不用 TWFE",
+   "status": "n/a",
+   "detail": "estimator = ols_fe"
+  },
+  {
+   "id": "robustness-locked",
+   "skill": "social-research",
+   "priority": "should",
+   "what": "环节 5：稳健性事前锁定、可执行",
+   "status": "fail",
+   "detail": "事前锁定的稳健性清单 23 项——超过 12 项就成了没人读的一墙检验；挑出真正会威胁结论的那些"
+  },
+  {
+   "id": "proxy-gap",
+   "skill": "social-research",
+   "priority": "should",
+   "what": "环节 4：代理变量填代理差距三栏",
+   "status": "pass",
+   "detail": "代理差距都填了（或没有代理变量）"
+  },
+  {
+   "id": "route-after-run",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 6 之二：跑完分析先开方；改完重跑再复查",
+   "status": "pass",
+   "detail": "最后一次 oss route seq 119 在最后一次分析之后"
+  },
+  {
+   "id": "route-disposed",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 6 之二：每条处方都有处置",
+   "status": "pass",
+   "detail": "1 条处方都有处置"
+  },
+  {
+   "id": "identification-audit",
+   "skill": "social-identification",
+   "priority": "must",
+   "what": "因果研究必须过识别审计",
+   "status": "n/a",
+   "detail": "研究类型不是因果"
+  },
+  {
+   "id": "audit-disposed",
+   "skill": "social-identification",
+   "priority": "must",
+   "what": "审计每条意见都有处置",
+   "status": "n/a",
+   "detail": "没有审计意见"
+  },
+  {
+   "id": "causal-estimand",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 5：因果计划写了估计量三步、控制变量标了角色",
+   "status": "n/a",
+   "detail": "研究类型不是因果"
+  },
+  {
+   "id": "causal-diagnostics-cited",
+   "skill": "social-research",
+   "priority": "should",
+   "what": "环节 7：因果论文引了因果诊断的数（有效 F / AR、预检功效 / breakdown、稳健值 / Oster δ / E 值）",
+   "status": "n/a",
+   "detail": "研究类型不是因果"
+  },
+  {
+   "id": "survey-design-declared",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 5：画像有调查信号的，计划声明了抽样设计或写了不按调查处理的理由",
+   "status": "pass",
+   "detail": "声明了抽样设计"
+  },
+  {
+   "id": "survey-descriptive-weighted",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 5：描述性估计加权了（调查层设计稿 4.1）",
+   "status": "n/a",
+   "detail": "不是描述性估计"
+  },
+  {
+   "id": "descriptive-estimand",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "环节 5：描述类计划写了描述量与目标总体（describe 还要写 description.kind）",
+   "status": "n/a",
+   "detail": "研究类型不是描述"
+  },
+  {
+   "id": "descriptive-magnitude",
+   "skill": "social-paper",
+   "priority": "should",
+   "what": "环节 7：描述类论文引了分组描述表，报大小与区间",
+   "status": "n/a",
+   "detail": "不是 describe 的描述研究"
+  },
+  {
+   "id": "tables",
+   "skill": "social-paper",
+   "priority": "must",
+   "what": "三张表：描述统计、主结果、稳健性",
+   "status": "pass",
+   "detail": "三张表都有"
+  },
+  {
+   "id": "figures-captioned",
+   "skill": "social-paper",
+   "priority": "must",
+   "what": "至少两张图，图注在下一行",
+   "status": "pass",
+   "detail": "2 张图都有图注"
+  },
+  {
+   "id": "no-process-language",
+   "skill": "social-paper",
+   "priority": "must",
+   "what": "铁律二：研究过程不进正文",
+   "status": "pass",
+   "detail": "正文没有过程痕迹"
+  },
+  {
+   "id": "causal-wording",
+   "skill": "social-paper",
+   "priority": "must",
+   "what": "研究类型不是因果的论文不下因果结论",
+   "status": "pass",
+   "detail": "没有明确的因果说法（模糊的 6 处交审稿人判）"
+  },
+  {
+   "id": "abstract-numbers",
+   "skill": "social-paper",
+   "priority": "should",
+   "what": "摘要要有具体数字",
+   "status": "pass",
+   "detail": "摘要有数字"
+  },
+  {
+   "id": "novelty-gate",
+   "skill": "social-paper",
+   "priority": "must",
+   "what": "没读全文不许说首次",
+   "status": "pass",
+   "detail": "没有站不住的新颖性主张"
+  },
+  {
+   "id": "desk-before-referees",
+   "skill": "social-review",
+   "priority": "should",
+   "what": "0：先桌审",
+   "status": "pass",
+   "detail": "桌审过"
+  },
+  {
+   "id": "three-referees",
+   "skill": "social-review",
+   "priority": "must",
+   "what": "1：三位互盲审稿人，含替代解释",
+   "status": "pass",
+   "detail": "第 1 轮 4 位审稿人，含替代解释"
+  },
+  {
+   "id": "editor-synthesis",
+   "skill": "social-review",
+   "priority": "should",
+   "what": "2：编辑综合",
+   "status": "pass",
+   "detail": "有编辑综合"
+  },
+  {
+   "id": "fail-rereviewed",
+   "skill": "social-review",
+   "priority": "must",
+   "what": "FAIL 必须复审一次",
+   "status": "pass",
+   "detail": "第 1 轮没有 FAIL"
+  },
+  {
+   "id": "export-gates",
+   "skill": "social-research",
+   "priority": "must",
+   "what": "导出前 must 级处方清零",
+   "status": "pass",
+   "detail": "导出前处方清了"
+  }
+ ],
+ "must_failed": [],
+ "summary": {
+  "pass": 26,
+  "fail": 1,
+  "n/a": 11
+ }
+}

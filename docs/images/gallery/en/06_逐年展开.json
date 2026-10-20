@@ -1,0 +1,10 @@
+{
+ "kind": "event",
+ "lang": "en",
+ "caption": "Event-study estimates by period relative to treatment, with 95% confidence intervals; period −1 is the omitted reference. Estimates for pre-treatment periods test for differential pre-trends.",
+ "png": "06_逐年展开.png",
+ "pdf": "06_逐年展开.pdf",
+ "dpi": 300,
+ "pre_trend_violations": 0,
+ "pre_trend_verdict": "unknown"
+}

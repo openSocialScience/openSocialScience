@@ -1,0 +1,79 @@
+[project]
+name = "opensocialscience"
+version = "0.5.0"
+description = "社科定量研究 agent 的工具箱：方向 + 数据 → 论文"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "docs/NOTICE"]
+# 注意：PEP 639 的 license 字段与 "License :: OSI Approved ..." 分类器互斥，别再加回来
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Text Processing :: Markup",
+]
+dependencies = [
+    "pydantic>=2.6",
+    "typer>=0.12",
+    "httpx>=0.27",
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "python-dotenv>=1.0",
+    # PDF 抽文的兜底（oss/core/reading.py）：没装 PyMuPDF、或 PyMuPDF 打不开坏 PDF 时走这条路，
+    # 不是可选功能，所以进基础依赖不进 extras。代码用的 extract_text() 从 3.0 起才有。
+    "pypdf>=3.0",
+]
+
+[project.optional-dependencies]
+# .dta / .sav / .sas7bdat 支持。装不上不影响 CSV / Excel。
+stats-formats = ["pyreadstat>=1.2"]
+excel = ["openpyxl>=3.1"]
+# 诊断图。装不上不影响任何分析——只是画不出图。
+figures = ["matplotlib>=3.8"]
+# 分批双重差分（Callaway–Sant'Anna）、Bacon 分解。算法来自 StatsPAI（MIT），约 300 MB 依赖。
+# 装不上不影响关联分析和 TWFE——只是 did_cs 用不了，校验会把安装命令报出来。
+causal = ["statspai>=1.23"]
+# 多层模型（随机截距、ICC）。装不上不影响别的估计量——只是 mixed 用不了，校验会把安装命令报出来。
+# logit / ologit **不在这里**：它们是 numpy 手写的，不加依赖。
+mixed = ["statsmodels>=0.14"]
+# 学术 PDF 抽全文（双栏阅读顺序）。装不上退回 pypdf。
+# ⚠ PyMuPDF 是 AGPL-3.0（或 Artifex 商业许可）。**故意放在可选 extra 里，不进 dependencies**——
+# 基础安装走 BSD 的 pypdf，装不装这个由用户自己决定。别把它挪进 dependencies。
+reading = ["pymupdf>=1.24"]
+# pyyaml 只给 scripts/validate_skills.py 用（读技能的 manifest.yaml）。
+# **不进 project.dependencies**：oss 运行时不解析 YAML，说明书是给模型读的。
+# python-docx：没有期刊模板时生成标准排版的 Word 模板。是真功能，所以进 dev 让 CI 测到；
+# 用户按需自己装（README 里写了）。
+dev = ["pytest>=8.0", "pyyaml>=6.0", "python-docx>=1.1"]
+
+[project.scripts]
+oss = "oss.cli.main:app"
+
+[build-system]
+# setuptools>=77：PEP 639 的 license = "Apache-2.0" 这种 SPDX 写法从这一版起才认
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+# 只打包 oss/。src/ 是旧实现，阶段 1 会从里面抢救 profiler 后删除。
+include = ["oss*"]
+
+[tool.setuptools.package-data]
+# skill 跟着包走，oss install-skills 从这里投影到各宿主的技能目录
+oss = ["skills/**/*", "assets/**/*"]
+# 宿主档案是数据文件；oss/hosts/ 自己是个包，所以单独列一条，
+# 否则 wheel 里只有 .py 没有 .json，install-skills 装完就找不到宿主。
+"oss.hosts" = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "network: 需要真实外部 API（默认跳过，用 -m network 打开）",
+    "llm: 需要真实模型调用，会花钱（默认跳过，用 -m llm 打开）",
+    "evalbench: 评测第 1 步的小抽样",
+]
+addopts = "-m 'not network and not llm'"

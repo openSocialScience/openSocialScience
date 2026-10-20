@@ -1,0 +1,27 @@
+name: social-paper
+version: 2.0.0
+description: >
+  单契约技能：SKILL.md 是路由器，contract.md 是四栏契约，reference/ 是按需读的写作细则。
+  没有阶段轴——一次调用只做一件事（把结果写成初稿），所以 axes 为空。
+
+always_load:
+  - contract.md
+
+axes: {}
+
+references:
+  on_demand:
+    - condition: "正文为什么用英文、两条英文稿专有的规矩、带了 --- style: 时的四件事"
+      path: reference/english-and-style.md
+    - condition: "带了 --- lang: zh——中文论文的节名编号、双语摘要、图表语言、引用与暂行体例"
+      path: reference/chinese.md
+    - condition: 占位符的八个命名空间、三张表、图与图注、引用、paper check 会拦什么、分箱断言
+      path: reference/placeholders.md
+    - condition: 研究过程的词怎么改写成结论本身
+      path: reference/no-process-language.md
+    - condition: 动笔前必读的 diagnostics / power.json / literature.json notes
+      path: reference/read-first.md
+    - condition: 摘要、引言、数据与方法、结果、讨论各写什么
+      path: reference/sections.md
+    - condition: 数据来自仿真货箱（`sim:`）时——结论句限定在本模型内、方法节十项、降级措辞、局限五件套、wave 对应真实轮次
+      path: reference/simulation.md

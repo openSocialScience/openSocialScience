@@ -1,0 +1,4 @@
+EXIT 0
+---
+✓ profile.json  →  <RUN>/profile.json
+  ⚠ CSV 不带变量标签，变量绑定只能依赖列名——若有 codebook 请一并提供

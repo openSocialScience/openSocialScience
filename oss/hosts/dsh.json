@@ -1,0 +1,18 @@
+{
+  "name": "dsh",
+  "label": "DeepSeek Harness",
+  "skills_dir": "${DSH_HOME:-~/.dsh}/skills",
+  "project_skills_dir": ".dsh/skills",
+  "substitutes_arguments": false,
+  "honors_allowed_tools": false,
+  "invocation": "/name",
+  "invocation_note": "/name 写在消息任意位置即可；宿主不替换 $ARGUMENTS，整条消息就是参数，技能自己从消息里取",
+  "executor_model_env": [],
+  "doctor_checks": ["dsh-home", "dsh-key-via-dotenv"],
+  "managed_doc": "AGENTS.md",
+  "index_file": "",
+  "detect_env": ["DSH_SHELL", "DSH_SESSION_ID"],
+  "detect_markers": [".dsh"],
+  "limits": "不替换 $ARGUMENTS；忽略 allowed-tools；bash 里拿不到名字带 KEY/TOKEN/SECRET/PASSWORD 的环境变量",
+  "source": "deepseek-harness：packages/skill/skill-filesystem/README.zh.md（技能根 rank 与「只认一层」的发现规则、frontmatter 只读 name/description/whenToUse/metadata/两个调用开关，其余键忽略）、packages/skill/tool-skill/README.zh.md（用户显式调用注入，不做参数替换）、packages/shell/tool-bash/README.zh.md（注入 DSH_HOME / DSH_SHELL / DSH_SESSION_ID / DSH_SESSION_JSONL）、packages/subprocess/subprocess-local/README.zh.md（凭据清除：*KEY* / *PASSWORD* / *SECRET* / *TOKEN*）、packages/context/agent-instructions/README.zh.md（instructionFileCandidates 缺省 AGENTS.md + CLAUDE.md，内容一致才折叠——所以托管块只写 AGENTS.md 一份，写两份会被当成两段不同指令都加载）。index_file 必须留空：dsh 把技能根下的平铺 <name>.md 也当成一份技能，放索引文件等于凭空多出一个叫索引的技能。executor_model_env 为空：dsh 只注入 DSH_* 四个变量，没有一个是模型名。skills_dir 写成 ${DSH_HOME:-~/.dsh}/skills 而不是写死 ~/.dsh/skills：同一份 README 里用户级技能根是 $DSH_HOME/skills（rank 400），~/.dsh 只是 DSH_HOME 的缺省值——用户设过 DSH_HOME 时写死那份会装到宿主根本不看的地方，而且装完看起来一切成功。detect_env 不含 DSH_HOME：它是用户能在普通 shell 里长期 export 的配置变量，在不在只说明「这台机器装过 dsh」，不是「dsh 正在跑我」；DSH_SHELL / DSH_SESSION_ID 是 dsh 每次起 bash 时才注入的，才算运行期证据"
+}

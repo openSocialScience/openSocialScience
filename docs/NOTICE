@@ -1,0 +1,72 @@
+OpenSocialScience —— 第三方组件与来源说明
+=========================================
+
+本文件列出仓库里随项目一起分发的第三方作品，以及它们的许可要求。
+项目自身按 Apache License 2.0 许可发布，见 LICENSE。
+
+
+一、参考文献样式文件（有署名义务）
+----------------------------------
+
+路径：oss/assets/csl/*.csl
+
+    american-sociological-association.csl
+    apa.csl
+    chicago-author-date.csl
+    china-national-standard-gb-t-7714-2015-author-date.csl
+    china-national-standard-gb-t-7714-2015-note.csl
+    china-national-standard-gb-t-7714-2015-numeric.csl
+
+来源：Citation Style Language 项目  https://citationstyles.org/
+      样式仓库  https://github.com/citation-style-language/styles
+
+许可：Creative Commons Attribution-ShareAlike 3.0 Unported（CC BY-SA 3.0）
+      https://creativecommons.org/licenses/by-sa/3.0/
+
+    六个文件每一个的 <rights> 字段里都写着这条许可。CC BY-SA 的两项要求：
+    署名（BY）——再分发必须标明出处，本文件即为此而设；
+    相同方式共享（SA）——若修改这些样式文件后再分发，修改版须继续采用 CC BY-SA。
+
+    SA 的范围仅限这些 .csl 文件本身及对它们的修改。oss/ 下的代码只是读取它们，
+    不构成衍生作品，因此不受 CC BY-SA 约束，项目可以自行选择许可证。
+
+
+二、可选依赖里的一个 AGPL 组件
+--------------------------------
+
+    pip install "opensocialscience[reading]"   →  PyMuPDF
+
+PyMuPDF 采用 AGPL-3.0 或 Artifex 商业许可双授权。它**不在本项目的必装依赖里**，
+只是 `reading` 这个可选 extra 会引入；基础安装用的是 BSD 许可的 pypdf，
+只在抽取双栏 PDF 的阅读顺序上略差一些。
+
+装不装由使用者自己决定。如果你所在的环境不能引入 AGPL 组件，不装 `reading` 即可，
+其余功能不受影响。
+
+
+三、参考过的开源项目（无许可义务，据实说明）
+--------------------------------------------
+
+本项目的 agent 契约、审稿循环、图表样式大量参考了下面两个项目的做法，
+并为社会科学重写了找题目的透镜与学科档案。二者均未直接复制代码。
+
+    ARIS（Auto-claude-code-research-in-sleep）
+    https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep
+
+    nature-skills
+    https://github.com/Yuan1z0825/nature-skills
+    读文献的源锚点纪律、互盲审稿的规矩、写作与润色的 skill
+
+
+四、数据来源
+------------
+
+系统按需从下列机构获取数据，数据本身不进仓库。各自的引用要求随数据一同下载，
+也可用 `oss data info <名>` 查看；用了哪套数据，论文里就必须按它的要求引用。
+
+    Quality of Government Institute（QoG）
+    V-Dem Project
+    NORC at the University of Chicago（GSS）
+    World Bank
+    OECD
+    Our World in Data

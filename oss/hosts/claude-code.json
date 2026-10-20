@@ -1,0 +1,18 @@
+{
+  "name": "claude-code",
+  "label": "Claude Code",
+  "skills_dir": "~/.claude/skills",
+  "project_skills_dir": ".claude/skills",
+  "substitutes_arguments": true,
+  "honors_allowed_tools": true,
+  "invocation": "/name",
+  "invocation_note": "斜杠命令；$ARGUMENTS 由宿主替换成 /name 之后的内容",
+  "executor_model_env": ["ANTHROPIC_MODEL"],
+  "doctor_checks": ["claude-cli-on-path"],
+  "managed_doc": "CLAUDE.md",
+  "index_file": "",
+  "detect_env": ["CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT"],
+  "detect_markers": [".claude"],
+  "limits": "无。这是本项目的开发宿主，投影等于原样复制",
+  "source": "本项目的开发宿主。CLAUDECODE / CLAUDE_CODE_ENTRYPOINT 由 2026-08-29 在 Claude Code 的 bash 工具里跑 env 实测得到；ANTHROPIC_MODEL 只在用户显式指定模型时才有，没设就落到执行者解析的下一级。index_file 留空：宿主按目录发现技能，多一份索引文件没有消费者"
+}

@@ -1,0 +1,3 @@
+EXIT 1
+---
+✗ 缺 paper.md——论文是 skill 写的，先让它产出

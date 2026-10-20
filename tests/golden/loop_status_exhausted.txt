@@ -1,0 +1,12 @@
+EXIT 4
+---
+决定 export_with_open_items｜轮次耗尽（2）：导出；遗留 1 条设计级意见，写进论文 Open questions；不再复审
+轮次 2/2｜状态 exhausted｜因果审计检测 none
+  第 1 轮：1 份审稿 ['FAIL']；设计 1 / 数据 0 / 文字 0 / 新发现 0 / 已处置 0
+      · [设计] 平行趋势不成立
+  第 2 轮：1 份审稿 ['FAIL']；设计 1 / 数据 0 / 文字 0 / 新发现 0 / 已处置 0
+      · [设计] 平行趋势不成立
+  锚点：「政策冲击与产出」｜edu_001｜计划指纹 f2da0f74bdb9
+  阶段 6-run（in_progress）｜冻结锚点 edu_001
+  ✗ 轮次耗尽（2）且最近一轮有 FAIL/ERROR/BLOCKED——**不再复审**；导出，并把遗留的 1 条设计级意见写进论文 Open questions
+→ <RUN>/loop_state.json

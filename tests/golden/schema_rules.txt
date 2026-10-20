@@ -1,0 +1,313 @@
+EXIT 0
+---
+{
+  "$defs": {
+    "PageLayout": {
+      "description": "页面级版式：页边距、页眉页脚、页码、单双面、分栏、行号。\n\n**这一层原先整个不存在。**段落级的档位（字体、字号、行距、缩进）有 `_ZH_LAYOUT`\n那张表，而页面级的东西全在 docx 的 `sectPr` 里，风格包只能手工塞一个\n`template.docx` 进去——于是「这本刊要求奇偶页不同页眉」「要求双面印刷」\n既没法声明，也没法校验，跟这个项目「声明出来、工具去建、还能核对」的做法相反。\n\n**须知没提的一律留空 / None，对应的设置就不动。**猜一个页边距写进去，\n比不写更糟：读者会以为这是该刊的要求。",
+      "properties": {
+        "margin_top_cm": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Margin Top Cm"
+        },
+        "margin_bottom_cm": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Margin Bottom Cm"
+        },
+        "margin_left_cm": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Margin Left Cm"
+        },
+        "margin_right_cm": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Margin Right Cm"
+        },
+        "two_sided": {
+          "default": false,
+          "description": "双面印刷：页边距镜像（内侧/外侧而不是左/右），且奇偶页可用不同页眉。单面（缺省）时 margin_left/right 就是字面的左右",
+          "title": "Two Sided",
+          "type": "boolean"
+        },
+        "header_odd": {
+          "default": "",
+          "description": "奇数页页眉的文字。支持 {journal}、{title}、{year}",
+          "title": "Header Odd",
+          "type": "string"
+        },
+        "header_even": {
+          "default": "",
+          "description": "偶数页页眉的文字；只在 two_sided 为真时生效",
+          "title": "Header Even",
+          "type": "string"
+        },
+        "footer_odd": {
+          "default": "",
+          "title": "Footer Odd",
+          "type": "string"
+        },
+        "footer_even": {
+          "default": "",
+          "title": "Footer Even",
+          "type": "string"
+        },
+        "page_number": {
+          "default": "",
+          "description": "页码放哪：空串＝不加；否则 header/footer 加 -left/-center/-right，如 footer-center。**页码只走这一格**，别写进 header_/footer_ 的文字里——那样出来的是死字符，不随页数变",
+          "title": "Page Number",
+          "type": "string"
+        },
+        "page_number_format": {
+          "default": "arabic",
+          "description": "arabic / roman-lower / roman-upper",
+          "title": "Page Number Format",
+          "type": "string"
+        },
+        "page_number_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "起始页号；None 用 Word 缺省的 1",
+          "title": "Page Number Start"
+        },
+        "columns": {
+          "default": 1,
+          "description": "分栏数。中文期刊排印常用两栏，投稿稿多为一栏",
+          "title": "Columns",
+          "type": "integer"
+        },
+        "column_gap_cm": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Column Gap Cm"
+        },
+        "line_numbers": {
+          "default": false,
+          "description": "连续行号（有些刊要求便于审稿人逐行指出）",
+          "title": "Line Numbers",
+          "type": "boolean"
+        },
+        "paper_size": {
+          "default": "",
+          "description": "纸张，如「A4」「Letter」。留空不动（pandoc 模板缺省是 Letter）",
+          "title": "Paper Size",
+          "type": "string"
+        },
+        "body_font": {
+          "default": "",
+          "description": "正文的中文字体，如「宋体」「仿宋」。留空用缺省",
+          "title": "Body Font",
+          "type": "string"
+        },
+        "body_size": {
+          "default": "",
+          "description": "正文字号，按须知的说法写：「小四」「小4号」「12pt」都认。跟 `footnote_size` 同一条规矩——**照抄须知的字号名，不要自己折成磅**",
+          "title": "Body Size",
+          "type": "string"
+        },
+        "footnote_font": {
+          "default": "",
+          "description": "注文的中文字体，如「仿宋」「宋体」。留空用缺省（中文稿缺省仿宋）",
+          "title": "Footnote Font",
+          "type": "string"
+        },
+        "footnote_size": {
+          "default": "",
+          "description": "注文的字号，按须知的说法写：「五号」「小五」「9pt」都认。**照抄须知的字号名，不要自己折成磅**——五号＝10.5 磅是国标里的固定对应，工具查表换算；而「36 字 × 35 行」那种要靠字体度量推算的，不属于这一格",
+          "title": "Footnote Size",
+          "type": "string"
+        },
+        "footnote_restart_each_page": {
+          "default": false,
+          "description": "脚注每页重新编号。《中国社会科学》的须知原句是「注释请用页下注（每页单独编号）」——**Word 缺省是全文连续编号**，不显式设置就跟须知不符，而这一条肉眼很难发现",
+          "title": "Footnote Restart Each Page",
+          "type": "boolean"
+        }
+      },
+      "title": "PageLayout",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "一本期刊的硬规矩。**skill 读作者须知填，工具核对每个数字在须知原文里有。**\n\n检测是通用的，数字是每本刊自己的。须知没提的留 None，对应的检测不生效。",
+  "properties": {
+    "journal": {
+      "default": "",
+      "title": "Journal",
+      "type": "string"
+    },
+    "word_limit": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "全文字数上限",
+      "title": "Word Limit"
+    },
+    "word_min": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "全文字数下限。**中文期刊的字数要求常常是区间**（「学术论文以 10000-20000 字为宜」），只填上限会漏掉「写得太短」这一半。「为宜」是建议不是硬杠，所以低于下限只出警告，不拦导出；「不超 X 字」那种硬上限仍然拦",
+      "title": "Word Min"
+    },
+    "word_limit_includes_references": {
+      "default": true,
+      "description": "上限含不含参考文献。Social Forces 含（连注释一起）",
+      "title": "Word Limit Includes References",
+      "type": "boolean"
+    },
+    "max_tables_figures": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "表 + 图面板的总数上限",
+      "title": "Max Tables Figures"
+    },
+    "double_blind": {
+      "default": false,
+      "description": "双盲：正文不许出现致谢、基金、作者信息",
+      "title": "Double Blind",
+      "type": "boolean"
+    },
+    "abstract_max_words": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Abstract Max Words"
+    },
+    "abstract_no_citations": {
+      "default": false,
+      "description": "摘要不含引用",
+      "title": "Abstract No Citations",
+      "type": "boolean"
+    },
+    "reference_style": {
+      "default": "",
+      "description": "录用后要求的引用格式，如 Chicago 17",
+      "title": "Reference Style",
+      "type": "string"
+    },
+    "supplementary_max_pages": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Supplementary Max Pages"
+    },
+    "figures_inline": {
+      "default": true,
+      "description": "图表内嵌正文（投稿时）",
+      "title": "Figures Inline",
+      "type": "boolean"
+    },
+    "figure_max_width": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "图的最大宽度（英寸），一般就是该刊的版心宽度。**Word / PDF 里图的物理宽度就是画布宽度**，超了会被整体缩放、印出来的字号跟着变小。留 None 用缺省 4.33 英寸（Social Forces 19 张真图的中位宽度）",
+      "title": "Figure Max Width"
+    },
+    "layout": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PageLayout"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "页面级版式。给了就**自动生成** Word 模板，不必手工塞 template.docx；包里同时有 template.docx 时以手工那份为准（手工的能表达的东西更多）"
+    },
+    "other_requirements": {
+      "description": "须知里有、但上面几类检测不覆盖的规矩，原句抄进来，写作时照做",
+      "items": {
+        "type": "string"
+      },
+      "title": "Other Requirements",
+      "type": "array"
+    }
+  },
+  "title": "StyleRules",
+  "type": "object"
+}
+
+（rules.json 由 skill 写。`--example` 看填好的样例）

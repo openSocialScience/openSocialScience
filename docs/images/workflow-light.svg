@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="808" viewBox="0 0 960 808" role="img"
+     aria-label="OpenSocialScience 的研究工作流：九个环节，每个环节列出做什么、产出哪个文件、要通过哪些检测。">
+  <style>
+    .sans { font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif; }
+    .mono { font-family: "SF Mono", ui-monospace, Menlo, "DejaVu Sans Mono", Consolas, monospace; }
+  </style>
+  <rect width="960" height="808" rx="12" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="28" y="48" class="sans" font-size="23" font-weight="700" fill="#1f2328">Research Workflow</text>
+  <text x="272" y="48" class="sans" font-size="17" fill="#59636e">从一句话到一篇论文</text>
+  <text x="28" y="80" class="mono" font-size="13" fill="#0969da">/social-research &lt;研究方向&gt; --- data: &lt;你的数据&gt; --- discipline: sociology</text>
+  <text x="28" y="106" class="sans" font-size="13.5" fill="#656d76">环节之间靠 run_state.json 记状态，中断可以续跑；每一步都写进 trace.jsonl。</text>
+  <text x="28"  y="136" class="sans" font-size="12.5" letter-spacing="1" fill="#656d76">环节</text>
+  <text x="228" y="136" class="sans" font-size="12.5" letter-spacing="1" fill="#656d76">这一步做什么</text>
+  <text x="572" y="136" class="sans" font-size="12.5" letter-spacing="1" fill="#656d76">主要产出</text>
+  <text x="740" y="136" class="sans" font-size="12.5" letter-spacing="1" fill="#656d76">需通过的检测（不过就停）</text>
+  <rect x="28" y="144" width="904" height="1" fill="#d1d9e0"/>
+  <rect x="28" y="165" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="184" class="mono" font-size="14" fill="#59636e" text-anchor="middle">1</text>
+  <text x="88" y="185" class="sans" font-size="16" fill="#1f2328">数据画像</text>
+  <text x="228" y="185" class="sans" font-size="14" fill="#424a53">结构、变量、缺失、层次、组内变异</text>
+  <text x="572" y="184" class="mono" font-size="12" fill="#0969da">profile.json</text>
+  <text x="760" y="184" class="sans" font-size="13" fill="#8c959f">这一步不设检测</text>
+  <rect x="28" y="208" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="208" width="904" height="58" fill="#f6f8fa"/>
+  <rect x="28" y="223" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="242" class="mono" font-size="14" fill="#59636e" text-anchor="middle">2</text>
+  <text x="88" y="243" class="sans" font-size="16" fill="#1f2328">文献与精读</text>
+  <text x="228" y="243" class="sans" font-size="14" fill="#424a53">三源检索、滚雪球；读书卡逐字回原文</text>
+  <text x="572" y="234" class="mono" font-size="12" fill="#0969da">literature.json</text>
+  <text x="572" y="251" class="mono" font-size="12" fill="#3b7dd8">reading_cards.json</text>
+  <circle cx="746" cy="237" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="242" class="sans" font-size="13" fill="#bc4c00">找不到引文原文就不通过</text>
+  <rect x="28" y="266" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="281" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="300" class="mono" font-size="14" fill="#59636e" text-anchor="middle">3</text>
+  <text x="88" y="301" class="sans" font-size="16" fill="#1f2328">找空白、想题目</text>
+  <text x="228" y="301" class="sans" font-size="14" fill="#424a53">四个起点发散，跨模型陪审团收窄</text>
+  <text x="572" y="292" class="mono" font-size="12" fill="#0969da">ideas.json</text>
+  <text x="572" y="309" class="mono" font-size="12" fill="#3b7dd8">review_ideas.json</text>
+  <circle cx="746" cy="295" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="300" class="sans" font-size="13" fill="#bc4c00">换题必须用户授权</text>
+  <rect x="28" y="324" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="324" width="904" height="58" fill="#f6f8fa"/>
+  <rect x="28" y="339" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="358" class="mono" font-size="14" fill="#59636e" text-anchor="middle">4</text>
+  <text x="88" y="359" class="sans" font-size="16" fill="#1f2328">可行性</text>
+  <text x="228" y="359" class="sans" font-size="14" fill="#424a53">构念绑到真实列；打折后的效应量算功效</text>
+  <text x="572" y="350" class="mono" font-size="12" fill="#0969da">binding.json</text>
+  <text x="572" y="367" class="mono" font-size="12" fill="#3b7dd8">power.json</text>
+  <circle cx="746" cy="353" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="358" class="sans" font-size="13" fill="#bc4c00">统计功效不够就停下</text>
+  <rect x="28" y="382" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="397" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="416" class="mono" font-size="14" fill="#59636e" text-anchor="middle">5</text>
+  <text x="88" y="417" class="sans" font-size="16" fill="#1f2328">写分析计划</text>
+  <text x="228" y="417" class="sans" font-size="14" fill="#424a53">估计量、稳健性、抽样设计预先登记</text>
+  <text x="572" y="416" class="mono" font-size="12" fill="#0969da">plan.json</text>
+  <circle cx="746" cy="411" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="416" class="sans" font-size="13" fill="#bc4c00">列名不存在就不通过</text>
+  <rect x="28" y="440" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="440" width="904" height="58" fill="#f6f8fa"/>
+  <rect x="28" y="455" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="474" class="mono" font-size="14" fill="#59636e" text-anchor="middle">6</text>
+  <text x="88" y="475" class="sans" font-size="16" fill="#1f2328">跑分析与处置</text>
+  <text x="228" y="475" class="sans" font-size="14" fill="#424a53">回归 + 诊断；诊断开处方，一次一处置</text>
+  <text x="572" y="466" class="mono" font-size="12" fill="#0969da">results.json</text>
+  <text x="572" y="483" class="mono" font-size="12" fill="#3b7dd8">route.json</text>
+  <circle cx="746" cy="469" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="474" class="sans" font-size="13" fill="#bc4c00">诊断问题没处理就不交付</text>
+  <rect x="28" y="498" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="513" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="532" class="mono" font-size="14" fill="#59636e" text-anchor="middle">7</text>
+  <text x="88" y="533" class="sans" font-size="16" fill="#1f2328">写论文</text>
+  <text x="228" y="533" class="sans" font-size="14" fill="#424a53">按刊物骨架写；统计结果只写占位符</text>
+  <text x="572" y="532" class="mono" font-size="12" fill="#0969da">paper.md</text>
+  <circle cx="746" cy="527" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="532" class="sans" font-size="13" fill="#bc4c00">正文手打数字就不通过</text>
+  <rect x="28" y="556" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="556" width="904" height="58" fill="#f6f8fa"/>
+  <rect x="28" y="571" width="50" height="28" rx="6" fill="#ffffff" stroke="#8250df" stroke-dasharray="3 3"/>
+  <text x="53" y="590" class="mono" font-size="14" fill="#59636e" text-anchor="middle">7.5</text>
+  <text x="94" y="591" class="sans" font-size="16" fill="#1f2328">识别审计</text>
+  <text x="94" y="608" class="sans" font-size="11" fill="#8250df">仅因果研究</text>
+  <text x="228" y="591" class="sans" font-size="14" fill="#424a53">处理时点内生？对照组？溢出与抢跑？</text>
+  <text x="572" y="590" class="mono" font-size="12" fill="#0969da">review_plan.json</text>
+  <circle cx="746" cy="585" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="590" class="sans" font-size="13" fill="#bc4c00">因果说法站不住就不通过</text>
+  <rect x="28" y="614" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="629" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="648" class="mono" font-size="14" fill="#59636e" text-anchor="middle">8</text>
+  <text x="88" y="649" class="sans" font-size="16" fill="#1f2328">跨模型审稿</text>
+  <text x="228" y="649" class="sans" font-size="14" fill="#424a53">桌审 → 三位盲审 → 主编；改了要复审</text>
+  <text x="572" y="640" class="mono" font-size="12" fill="#0969da">review_*.json</text>
+  <text x="572" y="657" class="mono" font-size="12" fill="#3b7dd8">loop_state.json</text>
+  <circle cx="746" cy="643" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="648" class="sans" font-size="13" fill="#bc4c00">审稿用同家模型就不执行</text>
+  <rect x="28" y="672" width="904" height="1" fill="#eaeef2"/>
+  <rect x="28" y="672" width="904" height="58" fill="#f6f8fa"/>
+  <rect x="28" y="687" width="44" height="28" rx="6" fill="#ffffff" stroke="#d1d9e0"/>
+  <text x="50" y="706" class="mono" font-size="14" fill="#59636e" text-anchor="middle">9</text>
+  <text x="88" y="707" class="sans" font-size="16" fill="#1f2328">自评与收尾</text>
+  <text x="228" y="707" class="sans" font-size="14" fill="#424a53">oss eval 核有没有照说明书做，导出</text>
+  <text x="572" y="698" class="mono" font-size="12" fill="#0969da">paper.docx</text>
+  <text x="572" y="715" class="mono" font-size="12" fill="#3b7dd8">eval_report.json</text>
+  <circle cx="746" cy="701" r="3.5" fill="#bc4c00"/>
+  <text x="760" y="706" class="sans" font-size="13" fill="#bc4c00">没经过审稿就不能导出</text>
+  <rect x="28" y="742" width="904" height="1" fill="#d1d9e0"/>
+  <text x="28" y="770" class="sans" font-size="13" fill="#656d76">没通过检测不等于不许交稿：功效落在灰区、审计有未清意见，都会<tspan fill="#424a53">如实写进局限</tspan>；只有「没经过审稿」和「判了不合格还没改」才会拦住导出。</text>
+</svg>
