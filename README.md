@@ -36,10 +36,13 @@ OpenSocialScience is a toolkit for quantitative social science research that run
 
 ## 🔥 News
 
-- 🔥 **2026-10-07** We released [v0.5.0](docs/CHANGELOG.md#050---2026-10-07). Welcome to have a try.
-- **2026-10-04** Your agent can now install OpenSocialScience for you.
-- **2026-09-27** We released three example papers.
-- **2026-09-14** We released [v0.4.0](docs/CHANGELOG.md#040---2026-09-14).
+- 🚀 **2026-10-07** · **v0.5.0 released.** Descriptive, measurement and simulation studies get their own plan requirements and checks, and every estimator supports survey weights and design-based standard errors. *([v0.5.0](docs/CHANGELOG.md#050---2026-10-07))*
+- 🤖 **2026-10-04** · **Install through your agent.** The agent follows [`INSTALL.md`](docs/INSTALL.md) to set everything up, see [Quick start](#-quick-start).
+- 📜 **2026-10-02** · **Apache 2.0.** Releases from v0.5.0 on are licensed under Apache 2.0. v0.4.0 and earlier remain MIT.
+- 📄 **2026-09-27** · **Three example papers.** One descriptive, one measurement and one causal study on CGSS data, each formatted for a Chinese journal, see [Examples](#-examples).
+- 📑 **2026-09-26** · **Chinese journals and literature.** Style packs for Sociological Studies, Journal of Management World and Social Sciences in China set the layout, fonts and word limits, and Chinese papers can be imported from web full text.
+- 🧪 **2026-09-19** · **Four research types.** Simulation joins causal, descriptive and measurement research, with its own plan contract and checks.
+- 🎉 **2026-09-14** · **v0.4.0 released.** The first versioned release, with a nine-stage research pipeline, cross-model review, six estimators, support for five agents and 32 tools over MCP. *([v0.4.0](docs/CHANGELOG.md#040---2026-09-14))*
 
 ## 🚀 Quick start
 
