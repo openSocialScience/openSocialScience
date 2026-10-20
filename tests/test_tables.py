@@ -477,8 +477,21 @@ def test_标签解析_交互项类别哑变量与查不到的情形() -> None:
     assert term_label("cls_mgr", L) == "管理与专业阶级"
     assert term_label("cls_mgr*decade", L) == "管理与专业阶级 × 调查年份"
     assert term_label("edu_long=1", L) == "受教育年限=1", "类别哑变量只换列名那一半"
+    assert term_label("urban_hukou3=2 城市非农户口", {"urban_hukou3": "城乡位置"}) == "城市非农户口", \
+        "取值自带文字就只印文字，不印「城乡位置=2」"
     assert term_label("age2", L) == "age2", "查不到就原样——猜错了比印列名更糟"
     assert term_label("cls_mgr*decade", None) == "cls_mgr*decade", "没有标签表就什么都不做"
+
+
+def test_分组表的格名不印列名() -> None:
+    """差序格局那篇 demo 的表 2 印成了「urban_hukou3=1 农村居民」。取值自己带文字就只印文字。"""
+    from oss.core.manuscript import group_label
+
+    assert group_label("urban_hukou3=1 农村居民", None) == "农村居民"
+    assert group_label("urban_hukou3=2 城市非农户口 × cohort=1", {"cohort": "出生队列"}) == "城市非农户口 × 出生队列=1"
+    assert group_label("sex=female", None) == "female"
+    assert group_label("cohort=2", None) == "cohort=2", "纯编码又查不到标签就原样"
+    assert group_label("全样本", None) == "全样本"
 
 
 def test_标签来源_plan压过binding() -> None:

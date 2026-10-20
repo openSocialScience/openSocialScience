@@ -82,6 +82,7 @@ FINDING_CODES: dict[str, tuple[str, str, str]] = {
     "cite.bare_surname": (_PAPER, HARD, "直呼语料作者的姓"),
     "cite.bare_surname_folded": (_PAPER, WARN, "去掉变音记号才跟语料作者的姓对得上"),
     "cite.no_author": (_PAPER, WARN, "正文引了没有作者的语料记录——导出会印成占位"),
+    "cite.unverified_title": (_PAPER, WARN, "正文引了题名还带 [UNVERIFIED] 的语料记录，参考文献会印出占位"),
     "cite.unknown_name": (_PAPER, WARN, "中文句里出现语料外的人名"),
     # ── 论文检查：oss.api.paper.check 自己的几条
     "paper.construct_gap": (_PAPER, WARN, "代理 / 构造变量的三栏没填全"),

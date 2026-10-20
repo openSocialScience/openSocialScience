@@ -1043,6 +1043,29 @@ def _no_author_warnings(paper: str, corpus) -> list[Finding]:
         "cite.no_author")]
 
 
+def _unverified_title_warnings(paper: str, corpus) -> list[Finding]:
+    """引了题名还带 `[UNVERIFIED]` 的记录。跟 `_no_author_warnings` 同一个理由：在导出之前说。
+
+    题名是从 PDF 版面猜的，猜完带着 `[UNVERIFIED]` 进语料（见 `oss/api/lit.py`），这一步是对的。
+    但三篇 demo 照样带着它导出了：参考文献里印着 `[UNVERIFIED]`，没有刊名、年份和页码，
+    原先导出前一句都不说。
+    """
+    if corpus is None:
+        return []
+    cited = _cited_ids(paper)
+    bad = [r for r in corpus.records
+           if ((r.paper_id or "").lower() in cited or (r.doi or "").lower() in cited)
+           and (r.title or "").lstrip().startswith("[UNVERIFIED]")]
+    if not bad:
+        return []
+    listed = "；".join(f"{r.paper_id}（{(r.title or '')[:34]}）" for r in bad[:4])
+    return [Finding(
+        f"正文引了 {len(bad)} 条**题名没核实**的记录：{listed}。"
+        f"导出时参考文献里会印出 `[UNVERIFIED]`，刊名、年份和页码多半也是空的。"
+        f"去期刊或知网的页面核对，补全题名、作者、刊名、年份、卷期页（直接改语料记录），或改引别的文献",
+        "cite.unverified_title")]
+
+
 def _bare_citation_problems(body: str, paper: str, corpus) -> list[str]:
     """**语料里有这个人，却用裸名字引** → 拒绝。
 
@@ -1658,6 +1681,7 @@ def check_claims(
         (warnings if code_of(f) == "cite.bare_surname_folded" else problems).append(f)
     warnings.extend(_bare_citation_warnings(body, corpus))
     warnings.extend(_no_author_warnings(paper, corpus))
+    warnings.extend(_unverified_title_warnings(paper, corpus))
     if PLACEHOLDER.search(paper) and "cite:" in paper and not REFERENCES.search(paper):
         warnings.append(
             Finding("引用了文献但正文里没有 {{references}}——"
@@ -2343,9 +2367,38 @@ def _one_label(part: str, labels: dict[str, str]) -> str:
     if (hit := labels.get(part)):
         return hit
     col, sep, value = part.partition("=")
+    if sep and (m := _CODED_VALUE.fullmatch(value)):
+        return m.group(1).strip()      # `urban_hukou3=2 城市非农户口` → 「城市非农户口」，见 `group_label`
     if sep and (hit := labels.get(col)):
         return f"{hit}={value}"
     return part
+
+
+#: 分组取值「编码 + 空格 + 文字」，如 `1 农村居民`：数据里带着取值标签
+_CODED_VALUE = re.compile(r"\s*-?\d+(?:\.\d+)?\s+(\S.*)")
+_NUMBER = re.compile(r"\s*-?\d+(?:\.\d+)?\s*")
+
+
+def group_label(label: str, labels: dict[str, str] | None) -> str:
+    """分组描述表里一格的名字。describe 把格名拼成 `列=取值`（多个分组列用 × 连），原样印就是
+    `urban_hukou3=1 农村居民`。
+
+    取值自己带文字的（`1 农村居民`、`female`），只印文字；纯编码的（`cohort=2`）换列名那一半，
+    跟 `term_label` 一样；查不到标签就原样返回。
+    """
+    labels = labels or {}
+    out = []
+    for part in label.split(TIMES):
+        col, sep, value = part.partition("=")
+        if not sep:
+            out.append(part)
+        elif (m := _CODED_VALUE.fullmatch(value)):
+            out.append(m.group(1).strip())
+        elif value.strip() and not _NUMBER.fullmatch(value):
+            out.append(value.strip())
+        else:
+            out.append(f"{labels[col]}={value}" if labels.get(col) else part)
+    return TIMES.join(out)
 
 
 def _term_parts(term: str) -> list[str]:
@@ -2651,7 +2704,7 @@ def table_markdown(name: str, results: AnalysisResults, *, en: bool = True,
             rows = []
             multi = len(results.groups) > 1
             for c in results.groups:
-                label = "Full sample" if en and c.label == "全样本" else c.label
+                label = "Full sample" if en and c.label == "全样本" else group_label(c.label, labels)
                 if c.reference:
                     diff = p = "ref." if en else "参照"
                 elif c.gap is None:

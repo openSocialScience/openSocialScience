@@ -209,6 +209,21 @@ def test_没有作者的记录印占位_并在导出前就警告() -> None:
     assert _no_author_warnings("只引有作者的 {{cite:pdf_y}}。", corpus) == []
 
 
+def test_题名没核实的记录在导出前点名() -> None:
+    """三篇 demo 带着 `[UNVERIFIED]` 导出了，原先导出前没有任何提示。"""
+    from oss.core.contracts import LiteratureCorpus, PaperRecord
+    from oss.core.manuscript import _unverified_title_warnings
+
+    corpus = LiteratureCorpus(records=[
+        PaperRecord(paper_id="pdf_x", title="[UNVERIFIED] 某文", authors=["张三"]),
+        PaperRecord(paper_id="pdf_y", title="核过的", authors=["李四"]),
+    ])
+    w = _unverified_title_warnings("正文 {{cite:pdf_x}} 与 {{citep:pdf_y}}。", corpus)
+    assert len(w) == 1 and "pdf_x" in str(w[0]) and "pdf_y" not in str(w[0])
+    assert _unverified_title_warnings("只引核过的 {{cite:pdf_y}}。", corpus) == []
+    assert _unverified_title_warnings("没引 pdf_x。", corpus) == []
+
+
 # ── 注文的字体字号：须知写了，原先没人读 ──────────────────────────
 @pytest.mark.parametrize("said,want_pt", [
     ("五号", 10.5), ("5号", 10.5), ("小五", 9), ("10.5pt", 10.5), ("12", 12.0),

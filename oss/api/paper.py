@@ -1602,8 +1602,10 @@ def export(run: str, *, out: str = "paper.docx", style: str = "") -> dict:
     # cwd 设到运行目录：正文里的图片是 `fig_xxx.png` 相对引用，
     # pandoc 按当前目录解析——**在别处跑图会静默丢失**（Word 里只剩占位框）。
     # 输出路径必须转绝对——cwd 已切进运行目录，相对路径会拼到错的地方
+    # `--columns=1`：pandoc 只给「有一行超过 --columns」的管道表定列宽、撑满版心，短表按内容收窄，
+    # LibreOffice 转出来区间那一栏会折成两行（差序格局 demo 的表 2）。设成 1 让每张表都撑满
     r = _sp.run(
-        args + ["-o", str(target.resolve()), "--resource-path", str(rundir.path.resolve())]
+        args + ["--columns=1", "-o", str(target.resolve()), "--resource-path", str(rundir.path.resolve())]
         + (["--reference-doc", str(reference_doc.resolve())] if reference_doc else []),
         cwd=rundir.path, capture_output=True, text=True)
     if r.returncode != 0:
