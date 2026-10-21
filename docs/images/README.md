@@ -12,9 +12,12 @@
 
 | 图 | 用在哪 | 尺寸 | 源文件 |
 |---|---|---|---|
-| `title{,-dark}.png` | README 首屏字标 | 2781 &times; 268 | 位图 |
+| `title{,-dark}.png` | README 首屏的标志和字标 | 1827 &times; 216 | 位图 |
+| `logo.svg` | 标志本身：五个人站成一条钟形曲线 | 矢量 | SVG |
+| `avatar.png` | GitHub 组织头像 | 500 &times; 500 | 位图 |
+| `social-preview.png` | GitHub 仓库设置里的 Social preview | 1280 &times; 640 | 位图 |
 | `hero-{light,dark}.jpg` | README 首屏大图，三篇实例论文的真实页面 | 2400 &times; 1000 | 位图，改了 `examples/` 的论文要重新出图 |
-| `hero.png` | GitHub 仓库设置里的 Social preview | 1024 &times; 506 | AI 生成的位图，**没有源文件**，要改得重新出图 |
+| `hero.png` | 原来的 Social preview，换成 `social-preview.png` 后不再用 | 1024 &times; 506 | AI 生成的位图，没有源文件 |
 | `workflow-{dark,light}.svg` / `.png` | 目前没有页面引用 | 960 &times; 808 | 手写 `-dark.svg` |
 | `architecture-{dark,light}.svg` / `.png` | ARCHITECTURE.md 开头 | 960 &times; 898 | 手写 `-dark.svg` |
 | `no-fabricated-numbers.png` | 中文 README（`docs/i18n/README_zh.md`）「数字溯源」一节的对比图 | 1666 &times; 722 | 位图，只有深色版，**没有可编辑的源文件**；回显可复现，见下 |
