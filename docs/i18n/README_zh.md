@@ -9,7 +9,7 @@
 ### 开源的社科定量研究 Agent
 
 <p align="center">
-<a href="../CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.5.0-184878?style=flat-square&logo=github&logoColor=white" alt="Version"/></a>
+<a href="../CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.0-184878?style=flat-square&logo=github&logoColor=white" alt="Version"/></a>
 <a href="../使用说明.md"><img src="https://img.shields.io/badge/docs-guide-0969da?style=flat-square&logo=readthedocs&logoColor=white" alt="Docs"/></a>
 <a href="#-实例"><img src="https://img.shields.io/badge/examples-3_papers-ef476f?style=flat-square&logo=googledocs&logoColor=white" alt="Examples"/></a>
 <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-Apache_2.0-D22128?style=flat-square&logo=apache&logoColor=white" alt="License"/></a>
@@ -36,7 +36,7 @@ OpenSocialScience 是一套在 Claude Code、Codex 等 Agent 中使用的社科�
 
 ## 🔥 动态
 
-- 🚀 **2026-10-07** · **v0.5.0 发布。** 描述、测量、仿真三类研究有了各自的计划要求和检查，所有估计量都支持抽样权重和按抽样设计算的标准误。 *([v0.5.0](../CHANGELOG.md#050---2026-10-07))*
+- 🚀 **2026-10-21** · **v0.1 发布。** 第一个公开版本，因果、描述、测量、仿真四类研究都能做，按中文期刊体例导出 Word。 *([v0.1.0](../CHANGELOG.md#010---2026-10-21))*
 - 🤖 **2026-10-04** · **Agent 自动安装。** Agent 照着 [`INSTALL.md`](../INSTALL.md) 装好整套工具，见[快速开始](#-快速开始)。
 - 📄 **2026-09-27** · **三篇实例论文。** 描述、测量、因果各一篇，都用 CGSS 数据，按中文期刊体例排版，见[实例](#-实例)。
 - 📑 **2026-09-26** · **中文期刊与文献。** 新增《社会学研究》《管理世界》《中国社会科学》三个风格包，管到版式、字体和字数；中文文献可以从网页全文导入。
@@ -121,7 +121,7 @@ QoG、V-Dem、GSS、CGSS 可以直接调用，例如 `--- data: pack:qog`。世�
   author  = {{OpenSocialScience contributors}},
   title   = {OpenSocialScience: An Open-Source Agent for Quantitative Social Science Research},
   year    = {2026},
-  version = {0.5.0},
+  version = {0.1.0},
   url     = {https://github.com/openSocialScience/openSocialScience}
 }
 ```

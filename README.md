@@ -9,7 +9,7 @@
 ### An Open-Source Agent for Quantitative Social Science Research
 
 <p align="center">
-<a href="docs/CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.5.0-184878?style=flat-square&logo=github&logoColor=white" alt="Version"/></a>
+<a href="docs/CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.0-184878?style=flat-square&logo=github&logoColor=white" alt="Version"/></a>
 <a href="docs/使用说明.md"><img src="https://img.shields.io/badge/docs-guide-0969da?style=flat-square&logo=readthedocs&logoColor=white" alt="Docs"/></a>
 <a href="#-examples"><img src="https://img.shields.io/badge/examples-3_papers-ef476f?style=flat-square&logo=googledocs&logoColor=white" alt="Examples"/></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache_2.0-D22128?style=flat-square&logo=apache&logoColor=white" alt="License"/></a>
@@ -36,7 +36,7 @@ OpenSocialScience is a toolkit for quantitative social science research that run
 
 ## 🔥 News
 
-- 🚀 **2026-10-07** · **v0.5.0 released.** Descriptive, measurement and simulation studies get their own plan requirements and checks, and every estimator supports survey weights and design-based standard errors. *([v0.5.0](docs/CHANGELOG.md#050---2026-10-07))*
+- 🚀 **2026-10-21** · **v0.1 released.** The first public release, covering causal, descriptive, measurement and simulation studies, with Word export in Chinese journal styles. *([v0.1.0](docs/CHANGELOG.md#010---2026-10-21))*
 - 🤖 **2026-10-04** · **Install through your agent.** The agent follows [`INSTALL.md`](docs/INSTALL.md) to set everything up, see [Quick start](#-quick-start).
 - 📄 **2026-09-27** · **Three example papers.** One descriptive, one measurement and one causal study on CGSS data, each formatted for a Chinese journal, see [Examples](#-examples).
 - 📑 **2026-09-26** · **Chinese journals and literature.** Style packs for Sociological Studies, Journal of Management World and Social Sciences in China set the layout, fonts and word limits, and Chinese papers can be imported from web full text.
@@ -122,7 +122,7 @@ QoG, V-Dem, GSS and CGSS are ready to use, for example `--- data: pack:qog`. Ind
   author  = {{OpenSocialScience contributors}},
   title   = {OpenSocialScience: An Open-Source Agent for Quantitative Social Science Research},
   year    = {2026},
-  version = {0.5.0},
+  version = {0.1.0},
   url     = {https://github.com/openSocialScience/openSocialScience}
 }
 ```

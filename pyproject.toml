@@ -1,6 +1,6 @@
 [project]
 name = "opensocialscience"
-version = "0.5.0"
+version = "0.1.0"
 description = "社科定量研究 agent 的工具箱：方向 + 数据 → 论文"
 readme = "README.md"
 requires-python = ">=3.11"

@@ -9,4 +9,4 @@
 **core/ 绝不 import host/ 与 hosts/。**（hosts/ 可以 import core/：执行者身份要读 run_state）
 """
 
-__version__ = "0.5.0"
+__version__ = "0.1.0"
