@@ -132,17 +132,14 @@ AR 区间直接拒导出。`iv_ols_gap` 盯 IV 与 OLS 差太远——通常意�
 
 ## 三 · 三个完整实例
 
-[`examples/`](../examples/) 下是三次真实运行的全部产物——源稿、填好数字的稿、分析计划、
-结果与诊断、两版 Word。三种研究类型，三本期刊的体例，`oss eval` 的 must 级检查全部通过。
+[`examples/`](../examples/) 下是三次真实运行交出的论文 PDF。
+三种研究类型，三本期刊的体例，`oss eval` 的 must 级检查全部通过。
 
 | 实例 | 类型 | 数据 | 期刊体例 |
 |---|---|---|---|
-| [差序格局的城乡与代际分布](../examples/descriptive-chaxu-geju/) | 描述 `describe` | CGSS 2015 | 社会学研究 |
-| [公共服务获得感测的是谁的获得](../examples/measurement-huodegan/) | 测量 `ols_fe` | CGSS 2013 | 管理世界 |
-| [宗教参与、捐赠与对陌生人的信任](../examples/causal-religion-trust/) | 因果 `iv` | CGSS 2012 | 中国社会科学 |
-
-把任一例的 `paper.md` 和 `paper_rendered.md` 对照着看，最容易理解占位符机制：
-源稿里写不出数字，数字是渲染时从 `results.json` 填进去的。
+| [差序格局的城乡与代际分布](../examples/descriptive-chaxu-geju.pdf) | 描述 `describe` | CGSS 2015 | 社会学研究 |
+| [公共服务获得感测的是谁的获得](../examples/measurement-huodegan.pdf) | 测量 `ols_fe` | CGSS 2013 | 管理世界 |
+| [宗教参与、捐赠与对陌生人的信任](../examples/causal-religion-trust.pdf) | 因果 `iv` | CGSS 2012 | 中国社会科学 |
 
 工具箱另有 `pytest` 4079 项测试（4 项需要真实网络或模型调用，默认跳过）。
 
@@ -176,7 +173,7 @@ oss/                  工具箱（Python）
   hosts/                五个 Agent 各自的档案
   host/reviewer.py      跨模型审稿：家族识别、流式调用
   sims/                 外部模拟器适配（OASIS / AgentSociety）
-examples/             三个完整实例的产物
+examples/             三篇实例论文（PDF）
 styles/               风格包
 tests/                测试
 docs/                 使用说明、各 Agent 接入、图
