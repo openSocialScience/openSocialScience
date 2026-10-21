@@ -14,6 +14,8 @@
 |---|---|---|---|
 | `title{,-dark}.png` | README 首屏的标志和字标 | 1827 &times; 216 | 位图 |
 | `logo.svg` | 标志本身：五个人站成一条钟形曲线 | 矢量 | SVG |
+| `logo-white.png` | 标志，纯白底，可当头像 | 1024 &times; 1024 | 位图 |
+| `logo.png` | 标志，透明底 | 1024 &times; 1024 | 位图 |
 | `avatar.png` | GitHub 组织头像 | 500 &times; 500 | 位图 |
 | `social-preview.png` | GitHub 仓库设置里的 Social preview | 1280 &times; 640 | 位图 |
 | `hero-{light,dark}.jpg` | README 首屏大图，三篇实例论文的真实页面 | 2400 &times; 1000 | 位图，改了 `examples/` 的论文要重新出图 |
