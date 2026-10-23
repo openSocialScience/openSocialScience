@@ -16,7 +16,7 @@ printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocol
 应该看到两行：
 
 ```
-{'name': 'oss', 'version': '0.5.0'}
+{'name': 'oss', 'version': '0.1.0'}
 32
 ```
 
@@ -24,7 +24,7 @@ printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocol
 
 ## 返回形状
 
-每个工具都返回同一个形状（提案 §七）：
+每个工具都返回同一个形状：
 
 ```json
 {
@@ -86,8 +86,7 @@ MCP 配置（Claude Code 是项目根的 `.mcp.json`），把 `<PROJECT_DIR>` �
 }
 ```
 
-**用 venv 里的绝对路径，不要写 `oss`。**PATH 上那个 `oss` 可能是几个月前一份
-非可编辑安装——这个仓库栽过（`oss doctor` 的第一条查的就是这个）。装好之后：
+**用 venv 里的绝对路径。** PATH 上的 `oss` 可能是另一份旧安装，`oss doctor` 的第一条会查这一点。装好之后：
 
 ```bash
 .venv/bin/oss doctor | head -3
@@ -124,14 +123,9 @@ MCP 配置（Claude Code 是项目根的 `.mcp.json`），把 `<PROJECT_DIR>` �
 模型看到的工具名是 `mcp__oss__oss_loop_status` 这种服务器限定形状，跟 Claude Code、
 Codex 一致。
 
-**不做 dsh 原生工具**（提案决定 3）：卡片、宿主检测这些等 dsh 稳定且确认为主力宿主之后，
-再在 MCP 之上加一层薄皮。
-
 ## 工具表
 
-32 个工具。这张表由 `tests/test_stage3_mcp.py` 跟代码一起测：
-**列了但代码里没有，或者代码里有但没列，测试都会红**——
-文档里列一个不存在的工具比不列更糟，模型会去调它，然后自己编一套解释。
+32 个工具：
 
 | 工具 | 对应命令 | 一句话 |
 |---|---|---|
@@ -168,10 +162,8 @@ Codex 一致。
 | `oss_data_fetch` | `oss data fetch` | 拉成「国家-年」长表 |
 | `oss_data_get` | `oss data get` | 拿一套现成数据 |
 
-参数名与命令行一一对应，除了下面**七处**改名（Python 关键字与内建名冲突、
-或者命令行的旗标名跟 api 的参数名本来就不同）。这份清单是把 typer 注册表与
-`TOOLS[*].properties` 求差集核出来的，只差大小写或连字符的不算改名
-（`--cluster-col` → `cluster_col`、位置参数 `DATA` → `data` 之类，一律照直换）：
+参数名与命令行一一对应，只差大小写或连字符的照直换（`--cluster-col` → `cluster_col`、
+位置参数 `DATA` → `data`）。下面七处改了名：
 
 | 命令行 | MCP 参数 |
 |---|---|
@@ -195,5 +187,5 @@ Codex 一致。
 **没暴露的命令**：`doctor`、`smoke`、`install-skills`、`trace save`、
 `style build` / `style template` / `style check`。前两个是边跑边打的进度日志，
 一个终态 JSON 说不清；`install-skills` 动的是宿主机全局目录，不该由模型远程触发；
-`trace save` 与 `style` 那三条是人在命令行上做的准备工作，不在提案 §七 的工具表里。
+`trace save` 与 `style` 那三条是人在命令行上做的准备工作。
 命令行照常用。

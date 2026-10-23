@@ -165,7 +165,7 @@ def test_doctor报告版本锁与检查结果():
     res = sim_api.doctor("oasis")
     data = res["data"]
     assert data["version_locked"] == "0.2.5"
-    assert {c["name"] for c in data["checks"]} == {"包可导入且版本相符", "样本数据在", "中转站变量在"}
+    assert {c["name"] for c in data["checks"]} == {"包可导入且版本相符", "样本数据在", "网关变量在"}
     # 本机装没装 OASIS 都不许让测试挂：只查形状，通过与否如实报
     assert all(isinstance(c["ok"], bool) and c["note"] for c in data["checks"])
 
@@ -181,7 +181,7 @@ def test_doctor_agentsociety三查齐且形状同oasis():
     res = sim_api.doctor("agentsociety")
     data = res["data"]
     assert data["version_locked"] == "2.8.4"
-    assert {c["name"] for c in data["checks"]} == {"包可导入且版本相符", "样本数据在", "中转站变量在"}
+    assert {c["name"] for c in data["checks"]} == {"包可导入且版本相符", "样本数据在", "网关变量在"}
     # 本机装没装 agentsociety2 都不许让测试挂：只查形状，通过与否如实报
     assert all(isinstance(c["ok"], bool) and c["note"] for c in data["checks"])
 
@@ -235,7 +235,7 @@ def test_两插头档案各自持样本基路径():
 def test_doctor中转站_BASE_KEY齐即直接能跑(monkeypatch):
     monkeypatch.setenv("BASE", "https://relay.example/v1")
     monkeypatch.setenv("KEY", "sk-test")
-    c = _check(sim_api.doctor("agentsociety"), "中转站变量在")
+    c = _check(sim_api.doctor("agentsociety"), "网关变量在")
     assert c["ok"] is True and "AGENTSOCIETY_LLM_API" in c["note"]
 
 
@@ -245,7 +245,7 @@ def test_doctor中转站_只有坐标可抄时绿但提醒还差export(tmp_path,
     monkeypatch.setenv("AGENTSOCIETY_LLM_API_KEY", "sk-test")
     monkeypatch.setenv("AGENTSOCIETY_LLM_API_BASE", "https://relay.example/v1")
     monkeypatch.chdir(tmp_path)          # 避开项目根的 .env
-    c = _check(sim_api.doctor("agentsociety"), "中转站变量在")
+    c = _check(sim_api.doctor("agentsociety"), "网关变量在")
     assert c["ok"] is True and "export" in c["note"] and "BASE" in c["note"]
 
 
@@ -264,5 +264,5 @@ def test_doctor中转站全无线索打叉(tmp_path, monkeypatch):
     # 的说明建了 ~/.config/oss/.env，这条测试就会在真机器上假装「全无线索」，
     # 实际早已被那份文件戳穿。指到一个不存在的路径，把这一档也关掉。
     monkeypatch.setattr(envfile, "USER_ENV", tmp_path / "home" / ".config" / "oss" / ".env")
-    c = _check(sim_api.doctor("agentsociety"), "中转站变量在")
+    c = _check(sim_api.doctor("agentsociety"), "网关变量在")
     assert c["ok"] is False and ".env" in c["note"]

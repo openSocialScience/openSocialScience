@@ -72,4 +72,4 @@ python3 -m venv .venv
 ```
 
 学科可选 `economics` / `sociology` / `political-science` / `psychology` / `communication`。
-没有自己的数据可以写 `data: pack:qog` 用内置数据集。更多用法见 README 的「快速开始 · 3 · 跑」。
+没有自己的数据可以写 `data: pack:qog` 用内置数据集。更多用法见 `docs/使用说明.md`。

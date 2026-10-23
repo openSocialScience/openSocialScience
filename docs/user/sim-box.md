@@ -5,8 +5,6 @@ OSS 读取模拟结果只用一种格式，叫货箱。货箱是一个目录，�
 OASIS、AgentSociety 这些模拟器的原始输出，先用各自的插头转成货箱（`oss sim pack`），再验货（`oss sim check`）。
 验货通过后，用 `oss sim import` 导入研究流程，论文会自动按仿真论文的体例写。
 
-检查规则的代码在 `oss/core/simbox.py`。
-
 ---
 
 ## 一、箱子里要有什么
@@ -35,7 +33,7 @@ OASIS 用 `post`、`user` 或空，AgentSociety 用 `post`、`agent` 或空。�
 **`raw/`** 里如果有和 `.db` 同名的 `<db 名>.run_summary.json`（跑单模板会自动生成，记模型报错次数和访谈缺失次数），
 插头会把各次跑的 `model_errors`、`interview_miss` 分别加总，写进配料单的 `packed`，
 同时写一个 `n_runs_with_summary`，记这两个数来自几次跑。有的跑缺这个文件时，从这个数能看出汇总少了几次。
-没有这个文件也不报错，早期的箱子里都没有。
+没有这个文件也不报错。
 
 缺了必需的文件，验货直接报错，见第三节开头。
 
@@ -55,7 +53,7 @@ OASIS 用 `post`、`user` 或空，AgentSociety 用 `post`、`agent` 或空。�
 | `simulator` | 模拟器名，如 `oasis` |
 | `simulator_version` | 模拟器版本，和 `oss sim doctor` 锁定的版本一致，如 `0.2.5` |
 | `model` | 驱动智能体的 LLM，如 `deepseek-v4-flash` |
-| `model_provider` | 模型厂商，以及走的哪个网关或中转站 |
+| `model_provider` | 模型厂商，以及走的哪个 API 网关 |
 | `temperature` | 温度参数；没有手动设过就填 `provider_default` |
 | `prompts` | 给模型的提示词原文，包括访谈问题和角色设定，逐字照抄 |
 | `population` | 智能体从哪来、有多少：用的哪份档案文件，取了多少人 |
@@ -77,7 +75,7 @@ OASIS 用 `post`、`user` 或空，AgentSociety 用 `post`、`agent` 或空。�
 | `n_unplaced` | 落不进任何一轮或一波的行数，多半是行号日志漏记了这一段 |
 | `file_sha256` | `raw/` 里每个原始数据库文件的 SHA-256，一个文件一个 |
 
-跑的时间范围、token 用量、跑脚本的哈希、时钟倍数和 `start_time`，插头目前不会自动写。
+跑的时间范围、token 用量、跑脚本的哈希、时钟倍数和 `start_time`，插头不会自动写。
 需要的话自己写进上面 12 项或论文的局限部分，跑脚本的哈希尤其值得记上。
 
 ---

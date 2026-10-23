@@ -62,7 +62,7 @@ def make_box(tmp_path: Path, *, reps=("1", "2", "3"), conditions=("A", "B"),
                 (box / f).touch()
     meta = {
         "simulator": "oasis", "simulator_version": "0.2.5",
-        "model": "deepseek-v4-flash", "model_provider": "ctis-relay",
+        "model": "deepseek-v4-flash", "model_provider": "api-gateway",
         "temperature": "provider_default", "prompts": "见 runner.py",
         "population": "OASIS 匿名样本 46 人", "conditions": {c: f"条件{c}" for c in conditions},
         "n_reps": len(reps), "rounds": 10, "interview_plan": "第 0/5/10 轮",

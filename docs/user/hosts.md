@@ -1,8 +1,7 @@
 # 在别的 agent 宿主上用 OSS
 
 OSS 的说明书只有一份，在仓库的 `.claude/skills/`。装到别的宿主时不是复制，是**投影**：
-`oss install-skills --host <宿主>` 按那个宿主的脾气改写之后再铺过去。
-宿主的脾气写在 `oss/hosts/<宿主>.json` 里，每条都有出处。
+`oss install-skills --host <宿主>` 按那个宿主的规矩改写之后再铺过去。
 
 ---
 
@@ -35,11 +34,11 @@ Codex 只认 `.agents/`（`.codex/` 未见文档记载，不作依据）。
 
 | 宿主 | `--host` | 装到 | 怎么叫 | 限制 |
 |---|---|---|---|---|
-| Claude Code | `claude-code` | `~/.claude/skills` | `/social-research 方向 --- data: x.csv` | 无。这是本项目的开发宿主，投影等于原样复制 |
+| Claude Code | `claude-code` | `~/.claude/skills` | `/social-research 方向 --- data: x.csv` | 无，说明书原样复制 |
 | DeepSeek Harness | `dsh` | `${DSH_HOME:-~/.dsh}/skills` | 消息里任意位置写 `/social-research`，整条消息都是参数 | 不替换 $ARGUMENTS；忽略 allowed-tools；bash 里拿不到名字带 KEY/TOKEN/SECRET/PASSWORD 的环境变量 |
 | Codex / OpenCode | `codex` | `~/.agents/skills` | `/social-research …` | 没实测过是否替换 $ARGUMENTS、是否认 allowed-tools；两处都按保守方向取值 |
-| OpenClaw | `openclaw` | `~/.openclaw/workspace/skills` | `/social-research …` | 只有全局 workspace 技能目录，没有项目级；事实来自 nature-skills 的接入教程，本项目没实测过 |
-| WorkBuddy（腾讯） | `workbuddy` | `~/.workbuddy/skills` | `/social-research …`（输入框提示写的是 `@` 提及，两种都到得了同一个技能） | 已初步实测（2026-09-07，5.5.3）：技能认得出、bash 跑得了本机命令行、说明书的判断规则会被执行；**是否替换 $ARGUMENTS 仍未测到**，按不替换准备；不写项目指令文件；它跑的是腾讯混元（Hy3），`.env` 的 EXECUTOR_MODEL 要照实改，否则留痕里的执行者是假的 |
+| OpenClaw | `openclaw` | `~/.openclaw/workspace/skills` | `/social-research …` | 只有全局 workspace 技能目录，没有项目级；未实测 |
+| WorkBuddy（腾讯） | `workbuddy` | `~/.workbuddy/skills` | `/social-research …`（输入框提示写的是 `@` 提及，两种都到得了同一个技能） | 技能认得出，bash 能跑本机命令行；**是否替换 $ARGUMENTS 仍未测到**，按不替换准备；不写项目指令文件；它跑的是腾讯混元（Hy3），`.env` 的 EXECUTOR_MODEL 要照实填，否则留痕里记的执行者不对 |
 
 设了 `DSH_HOME` 就装到它下面的 `skills/`，跟 dsh 自己找技能的位置一致（`~/.dsh` 只是
 `DSH_HOME` 的缺省值，不是写死的路径）——装错地方的话技能列表里什么都不会出现，
@@ -114,5 +113,4 @@ EXECUTOR_MODEL=deepseek-v4-flash    # 宿主实际跑的模型。跟上面的审
 | `oss doctor` 说 skill 跟源头不一致 | 换过宿主形状了。`oss install-skills --host <宿主> --force` |
 | 装到 dsh 之后技能列表里没有 | dsh 只认一层：`<技能根>/<名字>/SKILL.md`。别把整个 `skills` 目录再套一层 |
 | 模型看到字面的 `$ARGUMENTS` | 正常，那个宿主不替换。说明书里已写明该怎么取参数 |
-| `install-skills --project` 报「源头」 | 在本仓库里对 claude-code 用 `--project`：目标正好是规范源，会自己覆盖自己 |
 | 想看某个宿主投影出来长什么样 | `python scripts/build_hosts.py --host dsh --out /tmp/x` |

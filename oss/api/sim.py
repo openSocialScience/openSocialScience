@@ -134,7 +134,7 @@ def _profile(simulator: str) -> dict:
 
 
 def _relay_check(simulator: str) -> dict:
-    """③中转站变量在：查跑单**启动时**真正要的东西，不是上游包文档里的名字。
+    """③网关变量在：查跑单**启动时**真正要的东西，不是上游包文档里的名字。
 
     两家跑单都只认 `BASE`/`KEY` 这一对环境变量名（AgentSociety 的跑单启动时
     把它们映射成 AGENTSOCIETY_LLM_API_BASE/API_KEY 再喂 CLI 子进程——预先
@@ -148,7 +148,7 @@ def _relay_check(simulator: str) -> dict:
     `~/.config/oss/.env` / 源码检出）——sim-oasis.md §五、
     sim-agentsociety.md 对应描述已经跟着改。
     """
-    name = "中转站变量在"
+    name = "网关变量在"
     dotenv_near = bool(envfile.candidates())
     if simulator != "agentsociety":
         has_env = bool(os.getenv("REVIEWER_BASE_URL")) or dotenv_near
@@ -165,11 +165,11 @@ def _relay_check(simulator: str) -> dict:
                         "跑之前还得照它 export BASE/KEY，跑单只认这两个名"}
     return {"name": name, "ok": False,
             "note": "BASE/KEY 没 export，AGENTSOCIETY_LLM_*/REVIEWER_* 也没设，"
-                    "也没找到 .env（cwd 向上 / 用户级 / 源码检出都没有）——中转站坐标无处可抄"}
+                    "也没找到 .env（cwd 向上 / 用户级 / 源码检出都没有）——网关坐标无处可抄"}
 
 
 def doctor(simulator: str) -> dict:
-    """体检：包版本对不对、样本数据在不在、中转站变量找得到吗。只报事实，不修。"""
+    """体检：包版本对不对、样本数据在不在、网关变量找得到吗。只报事实，不修。"""
     if simulator not in KNOWN:
         raise ApiError(f"不认识的模拟器「{simulator}」，现有插头：{'、'.join(KNOWN)}", code=1)
     prof = _profile(simulator)

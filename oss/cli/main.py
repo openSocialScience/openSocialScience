@@ -989,7 +989,7 @@ def sim_import(box: str = typer.Argument(..., help="验过货的箱子"),
 @sim_app.command("doctor")
 def sim_doctor(simulator: str = typer.Option("oasis", "--simulator", help="体检哪个模拟器"),
                json_out: bool = typer.Option(False, "--json", help=JSON_HELP)) -> None:
-    """体检：版本锁、样本数据、中转站变量。只报事实。"""
+    """体检：版本锁、样本数据、网关变量。只报事实。"""
     try:
         res = sim_api.doctor(simulator)
     except ApiError as exc:

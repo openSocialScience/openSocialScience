@@ -108,7 +108,7 @@ oss sim doctor --simulator <名>
 - 全部 `✓` → 往下走第 3 步
 - 有 `✗` → 按**本模拟器安装单**对应小节的指引处理（oasis 见
   `docs/user/sim-oasis.md`，agentsociety 见 `docs/user/sim-agentsociety.md`；
-  包可导入、样本数据在、中转站变量在，三条各自的坑都写在安装单里。特别地，
+  包可导入、样本数据在、网关变量在，三条各自的坑都写在安装单里。特别地，
   agentsociety 分环境装法下「包可导入」一条大概率 `✗`——那不是没装好，是
   doctor 在错的环境里找包，见其安装单 §五）；**修完之后要
   重新跑一遍同一条 `oss sim doctor --simulator <名>` 确认这条也变成 `✓` 了，
