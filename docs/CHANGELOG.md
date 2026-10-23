@@ -1,7 +1,5 @@
 # 更新日志
 
-写法参照 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，新版本在上，版本号按 [语义化版本](https://semver.org/lang/zh-CN/)。
-
 ## [0.1.0] - 2026-10-21
 
 第一个公开版本。
